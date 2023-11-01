@@ -27,7 +27,7 @@ pipeline{
         }
         stage('tag image'){
             steps{       
-            sh 'docker tag onlinebookstoreappdeploy:latest 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:${BUILD_NUMBER}'
+            sh 'docker tag onlinebookstoreappdeploy:${BUILD_NUMBER} 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:${BUILD_NUMBER}'
             }  
         }
     }
