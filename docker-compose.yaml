@@ -1,0 +1,27 @@
+version: "3"
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: nimda
+      MYSQL_DATABASE: shoppingcart
+      MYSQL_USER: cart_user
+      MYSQL_PASSWORD: cart_pass
+  #  ports:
+  #    - "3306:3306"
+    # volumes:
+    # - ./db:/docker-entrypoint-initdb.d
+
+  web:
+    image: 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:latest
+    # Environment variables do not appear to be getting loaded the first time Tomcat starts!
+    environment:
+      JDBC_URL: jdbc:mysql://db:3306/shoppingcart?connectTimeout=0&amp;socketTimeout=0&amp;autoReconnect=true
+      JDBC_USER: root
+      JDBC_PASS: root
+    ports:
+    - "80:8080"
+    # volumes:
+    # - ./tomcat/webapps:/usr/local/tomcat/webapps
+    links:
+      - db
