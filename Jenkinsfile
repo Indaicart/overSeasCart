@@ -25,5 +25,10 @@ pipeline{
             sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 399747338321.dkr.ecr.ap-south-1.amazonaws.com'
             }  
         }
+        stage('tag image'){
+            steps{       
+            sh 'docker tag onlinebookstoreappdeploy:latest 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:${BUILD_NUMBER}'
+            }  
+        }
     }
 }
