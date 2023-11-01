@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        registry = 'public.ecr.aws/y9g3p5r6/onlinebookstoreappdeploy'
+        registry = '399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy'
     }
     stages{
         stage('Build mvn packages'){
@@ -21,9 +21,8 @@ pipeline{
             }
         }
         stage('login docker'){
-            steps{
-                
-            sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/y9g3p5r6 .'
+            steps{       
+            sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 399747338321.dkr.ecr.ap-south-1.amazonaws.com'
             }  
         }
     }
