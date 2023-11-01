@@ -17,7 +17,7 @@ pipeline{
         }
          stage('build docker image'){
             steps{
-                sh 'docker build -t onlinebookstoreappdeploy .'
+                sh 'docker build -t onlinebookstoreappdeploy:${BUILD_NUMBER} .'
             }
         }
     }
