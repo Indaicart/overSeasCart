@@ -2,6 +2,7 @@ pipeline{
     agent any
     environment{
         registry = '399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy'
+        imagename = 'onlineapp'
     }
     stages{
         stage('Build mvn packages'){
@@ -33,6 +34,11 @@ pipeline{
         stage('Push image to registry'){
             steps{       
             sh 'docker push 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:${BUILD_NUMBER}'
+            }  
+        }
+        stage('Image,run as container'){
+            steps{       
+            sh 'docker run -itd --name &{imagename} -p 8083:8080 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:${BUILD_NUMBER}'
             }  
         }
     }
