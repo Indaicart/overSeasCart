@@ -22,7 +22,11 @@ pipeline{
         }
         stage('login docker'){
             steps{
-                sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/y9g3p5r6 .'
+                withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
+   
+                 sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/y9g3p5r6 .'
+                 }
+                
             }
         }
     }
