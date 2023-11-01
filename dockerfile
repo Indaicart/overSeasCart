@@ -1,6 +1,6 @@
 FROM tomcat
 
-COPY target/shopping-cart-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps
+COPY target/shopping-cart-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/shoppingcart.war
 
 EXPOSE 8083
 
