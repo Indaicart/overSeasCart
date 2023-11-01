@@ -36,6 +36,12 @@ pipeline{
             sh 'docker push 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:${BUILD_NUMBER}'
             }  
         }
+        stage('stop pervious container'){
+            steps{       
+              sh 'docker ps -f name=${imagename} -q | xargs --no-run-if-empty docker container stop'
+              sh 'docker container ls -a -fname=${imagename} -q | xargs -r docker container rm'
+            }  
+        }
         stage('Image,run as container'){
             steps{       
             sh 'docker run -itd --name &{imagename} -p 8083:8080 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:${BUILD_NUMBER}'
