@@ -30,5 +30,10 @@ pipeline{
             sh 'docker tag onlinebookstoreappdeploy:${BUILD_NUMBER} 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:${BUILD_NUMBER}'
             }  
         }
+        stage('Push image to registry'){
+            steps{       
+            sh 'docker push 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:${BUILD_NUMBER}'
+            }  
+        }
     }
 }
