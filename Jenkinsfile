@@ -44,7 +44,7 @@ pipeline{
         }
         stage('Image,run as container'){
             steps{       
-            sh 'docker run -itd --name &{imagename} -p 8083:8080 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:${BUILD_NUMBER}'
+            sh 'docker run -itd --name ${imagename} -p 8083:8080 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:${BUILD_NUMBER}'
             }  
         }
     }
