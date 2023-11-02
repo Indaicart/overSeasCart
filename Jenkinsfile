@@ -18,7 +18,7 @@ pipeline{
         }
         stage('build docker image'){
             steps{
-                sh 'docker build -t onlinebookstoreappdeploy:latest .'
+                sh 'docker build -t onlinebookstoreappdeploy:${build_number} .'
             }
         }
         stage('login docker'){
@@ -28,12 +28,12 @@ pipeline{
         }
         stage('tag image'){
             steps{       
-            sh 'docker tag onlinebookstoreappdeploy:latest 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:latest'
+            sh 'docker tag onlinebookstoreappdeploy:${build_number} 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:${build_number}'
             }  
         }
         stage('Push image to registry'){
             steps{       
-            sh 'docker push 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:latest'
+            sh 'docker push 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:${build_number}'
             }  
         }
         stage('stop pervious container'){
@@ -44,7 +44,7 @@ pipeline{
         }
         stage('Image,run as container'){
             steps{       
-            sh 'docker run -itd --name ${imagename} -p 8083:8080 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:latest'
+            sh 'docker run -itd --name ${imagename} -p 8083:8080 399747338321.dkr.ecr.ap-south-1.amazonaws.com/onlinebookstoreappdeploy:${build_number}'
             }  
         }
     }
