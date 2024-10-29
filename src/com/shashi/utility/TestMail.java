@@ -5,7 +5,7 @@ import jakarta.mail.MessagingException;
 public class TestMail {
 	public static void main(String[] args) {
 		try {
-			String recipient = "ellison.alumni@gmail.com";
+			String recipient = "strike_maniac@gmail.com";
 			String subject = "Mail Configuration Successfull";
 			String htmlTextMessage = "" + "<html>"
 					+ "<head><title>Java Mail Configuration Test</title><style>.greenText{color:green;} p{font-size:14;}</style></head><body>"
