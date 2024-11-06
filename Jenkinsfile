@@ -17,7 +17,7 @@ pipeline{
             steps{
                 withSonarQubeEnv(credentialsId: 'sonar') {
                 sh "mvn clean verify sonar:sonar"
-                    
+                }        
             }
         }
     }
