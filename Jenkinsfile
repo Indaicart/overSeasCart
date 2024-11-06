@@ -13,5 +13,10 @@ pipeline{
                 sh "mvn test"
             }
         }
+        stage("sonarqube"){
+            steps{
+                sh "mvn clean verify sonar:sonar"
+            }
+        }
     }
 }
