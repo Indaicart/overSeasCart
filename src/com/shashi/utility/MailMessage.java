@@ -8,14 +8,8 @@ public class MailMessage {
 		String subject = "Registration Successfull";
 		String htmlTextMessage = "" + "<html>" + "<body>"
 				+ "<h2 style='color:green;'>Welcome to Indian Cart</h2>" + "" + "Hi " + name + ","
-				+ "<br><br>Thanks for singing up with Indian Cart.<br>"
-				+ "We are glad that you choose us. We invite you to check out our latest collection of new electonics appliances."
-				+ "<br>We are providing upto 60% OFF on most of the electronic gadgets. So please visit our site and explore the collections."
-				+ "<br><br>Our Online electronics is growing in a larger amount these days and we are in high demand so we thanks all of you for "
-				+ "making us up to that level. We Deliver Product to your house with no extra delivery charges and we also have collection of most of the"
-				+ "branded items.<br><br>As a Welcome gift for our New Customers we are providing additional 10% OFF Upto 500 Rs for the first product purchase. "
-				+ "<br>To avail this offer you only have "
-				+ "to enter the promo code given below.<br><br><br> PROMO CODE: " + "ELLISON500<br><br><br>"
+				+ "<br><br>Thanks for singing up with Indian Cart. We are glad that you choose us."
+				+ "<br>So please visit our site and explore the collections."
 				+ "Have a good day!<br>" + "" + "</body>" + "</html>";
 		try {
 			JavaMailUtil.sendMail(recipient, subject, htmlTextMessage);
@@ -31,7 +25,6 @@ public class MailMessage {
 		String htmlTextMessage = "<html>" + "  <body>" + "    <p>" + "      Hey " + name + ",<br/><br/>"
 				+ "      We are glad that you shop with Indian Cart!" + "      <br/><br/>"
 				+ "      Your order has been placed successfully and under process to be shipped."
-				+ "<br/><h6>Please Note that this is a demo projet Email and you have not made any real transaction with us till now!</h6>"
 				+ "      <br/>" + "      Here is Your Transaction Details:<br/>" + "      <br/>"
 				+ "      <font style=\"color:red;font-weight:bold;\">Order Id:</font>"
 				+ "      <font style=\"color:green;font-weight:bold;\">" + transId + "</font><br/>" + "      <br/>"
