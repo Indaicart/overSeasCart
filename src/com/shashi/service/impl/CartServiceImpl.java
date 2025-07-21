@@ -390,4 +390,35 @@ public class CartServiceImpl implements CartService {
 
 		return count;
 	}
+	
+	@Override
+	public String removeAllProductsFromCart(String userId) {
+	    String status = "Cart clearance failed.";
+
+	    Connection con = DBUtil.provideConnection();
+	    PreparedStatement ps = null;
+
+	    try {
+	        ps = con.prepareStatement("DELETE FROM usercart WHERE username = ?");
+	        ps.setString(1, userId);
+
+	        int rowsAffected = ps.executeUpdate();
+
+	        if (rowsAffected > 0) {
+	            status = "All products successfully removed from the cart!";
+	        } else {
+	            status = "Cart was already empty!";
+	        }
+
+	    } catch (SQLException e) {
+	        status = "Error while clearing cart: " + e.getMessage();
+	        e.printStackTrace();
+	    } finally {
+	        DBUtil.closeConnection(con);
+	        DBUtil.closeConnection(ps);
+	    }
+
+	    return status;
+	}
+
 }

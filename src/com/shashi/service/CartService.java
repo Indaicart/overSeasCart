@@ -20,4 +20,6 @@ public interface CartService {
 
 	public boolean removeAProduct(String userId, String prodId);
 
+	public String removeAllProductsFromCart(String userId);
+
 }
