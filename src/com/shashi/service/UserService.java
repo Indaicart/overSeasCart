@@ -23,5 +23,9 @@ public interface UserService {
 	public String getFName(String emailId);
 
 	public String getUserAddr(String userId);
+	
+	public boolean updateUserDetails(String name,int pinCode, String email, Long mobile, String address);
+
+	UserBean getUserDetails(String email);
 
 }

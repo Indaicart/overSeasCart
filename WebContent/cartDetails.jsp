@@ -148,7 +148,7 @@
 						</form></td>
 					<td colspan="2" align="center"><form method="post">
 							<button style="background-color: blue; color: white;"
-								formaction="./CreateOrderServlet?amount=<%=totAmount%>">Pay Now</button>
+								formaction="./CheckoutServlet?amount=<%=totAmount%>">Checkout</button>
 						</form></td>
 
 				</tr>

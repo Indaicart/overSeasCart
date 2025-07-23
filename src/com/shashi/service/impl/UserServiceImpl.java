@@ -227,5 +227,68 @@ public class UserServiceImpl implements UserService {
 
 		return userAddr;
 	}
+	
+	@Override
+	public boolean updateUserDetails(String name, int pincode, String email, Long mobile, String address) {
+	    boolean success = false;
+	    System.out.println("email : " + email + "mobile :" + mobile + "address :" + address);
+
+	    try (Connection con = DBUtil.provideConnection()) {
+	        String sql = "UPDATE user SET mobile = ?, address = ?, name = ?, pincode = ? WHERE email = ?";
+	        PreparedStatement ps = con.prepareStatement(sql);
+	        ps.setLong(1, mobile);
+	        ps.setString(2, address);
+	        ps.setString(3, name);
+	        ps.setInt(4, pincode);
+	        ps.setString(5, email);
+
+	        int rows = ps.executeUpdate();
+	        success = rows > 0;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return success;
+	}
+	
+	@Override
+	public UserBean getUserDetails(String emailId) {
+
+		UserBean user = null;
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("select * from user where email=?");
+			ps.setString(1, emailId);
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				user = new UserBean();
+				user.setName(rs.getString("name"));
+				user.setMobile(rs.getLong("mobile"));
+				user.setEmail(rs.getString("email"));
+				user.setAddress(rs.getString("address"));
+				user.setPinCode(rs.getInt("pincode"));
+
+				return user;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+
+		return user;
+	}
+
+
 
 }
