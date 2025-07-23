@@ -70,6 +70,7 @@
         </div>
         <div class="modal-body">
             <input type="hidden" name="email" value="<%= user.getEmail() %>"/>
+            <input type="hidden" name="amount" value="<%= amount %>" />
 
             <!-- Name field -->
             <div class="form-group">

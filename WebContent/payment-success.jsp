@@ -5,6 +5,7 @@
     String paymentId = (String) request.getAttribute("paymentId");
     String orderId = (String) request.getAttribute("orderId");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,6 +66,6 @@
             <button type="submit" class="btn-home">Go to Home</button>
         </form>
     </div>
-
+<%@ include file="footer.html"%>
 </body>
 </html>

@@ -34,6 +34,8 @@ public class UpdateUserDetailsServlet extends HttpServlet {
                 request.setAttribute("user", user);
             }
         }
+        String amount = request.getParameter("amount");
+        request.setAttribute("amount", amount);
 
         // Redirect back to checkout page
         request.getRequestDispatcher("checkout.jsp").forward(request, response);
