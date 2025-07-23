@@ -23,8 +23,9 @@
 		<div class="row"
 			style="margin-top: 5px; margin-left: 2px; margin-right: 2px;">
 			<form action="./LoginSrv" method="post"
-				class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2"
-				style="border: 2px solid black; border-radius: 10px; background-color: #FFE5CC; padding: 10px;">
+			    class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2"
+			    style="border: 2px solid black; border-radius: 10px; background-color: #FFE5CC; padding: 10px;"
+			    onsubmit="return setUserType()"> 
 				<div style="font-weight: bold;" class="text-center">
 					<h2 style="color: green;">Login Form</h2>
 					<%
@@ -40,27 +41,30 @@
 				<div></div>
 				<div class="row">
 					<div class="col-md-12 form-group">
-						<label for="last_name">Username</label> <input type="email"
-							placeholder="Enter Username" name="username" class="form-control"
-							id="last_name" required>
+						<label for="username">Username</label>
+						<input type="email"
+						    placeholder="Enter Username" name="username"
+						    class="form-control" id="username" required>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12 form-group">
-						<label for="last_name">Password</label> <input type="password"
-							placeholder="Enter Password" name="password" class="form-control"
-							id="last_name" required>
+						<label for="password">Password</label>
+						<input type="password"
+						    placeholder="Enter Password" name="password"
+						    class="form-control" id="password" required>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12 form-group">
-						<label for="userrole">Login As</label> <select name="usertype"
-							id="userrole" class="form-control" required>
-							<option value="customer" selected>CUSTOMER</option>
-							<option value="admin">ADMIN</option>
-						</select>
-					</div>
+				<div class="row" style="display: none;">
+			    	<div class="col-md-12 form-group">
+				        <label for="userrole">Login As</label>
+				        <select name="usertype" id="userrole" class="form-control">
+				            <option value="customer" selected>CUSTOMER</option>
+				            <option value="admin">ADMIN</option>
+				        </select>
+			    	</div>
 				</div>
+
 				<div class="row">
 					<div class="col-md-12 text-center">
 						<button type="submit" class="btn btn-success">Login</button>
@@ -70,6 +74,22 @@
 
 		</div>
 	</div>
+	<script>
+	    function setUserType() {
+	        const username = document.getElementById("username").value.trim();
+	        const password = document.getElementById("password").value.trim();
+	        const userrole = document.getElementById("userrole");
+	        debugger;
+	
+	        if (username === "admin@gmail.com" && password === "admin") {
+	            userrole.value = "admin";
+	        } else {
+	            userrole.value = "customer";
+	        }
+	
+	        return true; // allow form submission
+	    }
+	</script>
 
 	<%@ include file="footer.html"%>
 
