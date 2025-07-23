@@ -4,6 +4,8 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+import com.razorpay.Payment;
+import com.shashi.service.impl.OrderServiceImpl;
 import org.json.JSONObject;
 
 import com.razorpay.Order;
@@ -26,7 +28,14 @@ public class PaymentCallbackServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        HttpSession session = request.getSession();
+        String userName = (String) session.getAttribute("username");
+        String password = (String) session.getAttribute("password");
+
+        if(userName == null || password == null) {
+
+            response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
+        }
         String razorpayPaymentId = request.getParameter("razorpay_payment_id");
         String razorpayOrderId = request.getParameter("razorpay_order_id");
         String razorpaySignature = request.getParameter("razorpay_signature");
@@ -46,17 +55,13 @@ public class PaymentCallbackServlet extends HttpServlet {
         try {
             // Fetch order using RazorpayOrderId
         	RazorpayClient razorpayClient = new RazorpayClient(apiKey,apiSecret);
-            Order order = razorpayClient.orders.fetch(razorpayOrderId);
-            String receipt = order.get("receipt");   // Contains your embedded userId
-            String[] parts = receipt.split("_");
-            String userId = parts[1]; 
+            Payment payment = razorpayClient.payments.fetch(razorpayPaymentId);
+            System.out.println("Payment details : " + payment.toString());
+            System.out.println("Amount : " + payment.get("amount"));
+            int amountInPaise = (int) payment.get("amount");
+            double amountInRupees = amountInPaise / 100.0;
 
-            // Now you have userId → clear their cart
-            System.out.println();
-            System.out.println("Order : " + order);
-            System.out.println("User ID : " + userId);
-            CartServiceImpl cart = new CartServiceImpl();
-            cart.removeAllProductsFromCart("laxmikanthchougale2@gmail.com");
+            String status = new OrderServiceImpl().paymentSuccess(userName, amountInRupees);
 
             // Redirect to success page
             

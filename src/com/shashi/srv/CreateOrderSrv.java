@@ -1,6 +1,7 @@
 package com.shashi.srv;
 
 import com.razorpay.Order;
+import com.shashi.service.impl.OrderServiceImpl;
 import com.shashi.service.impl.RazorPayServiceImpl;
 
 import javax.servlet.ServletException;
@@ -19,10 +20,10 @@ public class CreateOrderSrv extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-		ResourceBundle rb = ResourceBundle.getBundle("application");
+		ResourceBundle rb = ResourceBundle.getBundle("application");;
 
 		String apiKey = rb.getString("razorpay.api.key");
-        double amount = Double.parseDouble(request.getParameter("amount")); 
+        double amount = Double.parseDouble(request.getParameter("amount"));
 
         try {
             RazorPayServiceImpl razorPayService = new RazorPayServiceImpl();
@@ -30,6 +31,7 @@ public class CreateOrderSrv extends HttpServlet {
             String currency = "INR";
 
             Order order = razorPayService.createOrder(amount, currency, receiptId);
+
             System.out.print("Order details : " + order);
             request.setAttribute("orderId", order.get("id"));  // e.g., "order_Mh0zLhE2..."
             request.setAttribute("amount", amount);
