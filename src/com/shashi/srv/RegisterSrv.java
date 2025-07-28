@@ -23,7 +23,7 @@ public class RegisterSrv extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setContentType("text/html");
-		String userName = request.getParameter("username");
+		String userName = request.getParameter("name");
 		Long mobileNo = Long.parseLong(request.getParameter("mobile"));
 		String emailId = request.getParameter("email");
 		String address = request.getParameter("address");

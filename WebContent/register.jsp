@@ -40,44 +40,38 @@
 				<div></div>
 				<div class="row">
 					<div class="col-md-6 form-group">
-						<label for="first_name">Name</label> <input type="text"
-							name="username" class="form-control" id="first_name"
-							name="first_name" required>
+						<label for="name">Name</label> 
+						<input type="text" name="name" class="form-control" id="name" required>
 					</div>
 					<div class="col-md-6 form-group">
-						<label for="last_name">Email</label> <input type="email"
-							name="email" class="form-control" id="last_name" name="last_name"
-							required>
+						<label for="email">Email</label> 
+						<input type="email" name="email" class="form-control" id="email" 
+						value="<%= request.getAttribute("emailPrefilled") != null ? request.getAttribute("emailPrefilled") : "" %>" 
+						readonly>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="last_name">Address</label>
-					<textarea name="address" class="form-control" id="last_name"
-						name="last_name" required></textarea>
+					<label for="address">Address</label>
+					<textarea name="address" class="form-control" id="address" required></textarea>
 				</div>
 				<div class="row">
 					<div class="col-md-6 form-group">
-						<label for="last_name">Mobile</label> <input type="number"
-							name="mobile" class="form-control" id="last_name"
-							name="last_name" required>
+						<label for="mobile">Mobile</label> 
+						<input type="number" name="mobile" class="form-control" id="mobile" required>
 					</div>
 					<div class="col-md-6 form-group">
-						<label for="last_name">Pin Code</label> <input type="number"
-							name="pincode" class="form-control" id="last_name"
-							name="last_name" required>
+						<label for="last_name">Pin Code</label> 
+						<input type="number" name="pincode" class="form-control" id="pincode" required>
 					</div>
-
 				</div>
 				<div class="row">
 					<div class="col-md-6 form-group">
-						<label for="last_name">Password</label> <input type="password"
-							name="password" class="form-control" id="last_name"
-							name="last_name" required>
+						<label for="password">Password</label> 
+						<input type="password" name="password" class="form-control" id="password" required>
 					</div>
 					<div class="col-md-6 form-group">
-						<label for="last_name">Confirm Password</label> <input
-							type="password" name="confirmPassword" class="form-control"
-							id="last_name" name="last_name" required>
+						<label for="last_name">Confirm Password</label> 
+						<input type="password" name="confirmPassword" class="form-control" id="confirmPassword" required>
 					</div>
 				</div>
 				<div class="row text-center">

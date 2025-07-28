@@ -291,4 +291,31 @@ public class UserServiceImpl implements UserService {
 
 
 
+	@Override
+	public boolean updatePassword(String email, String password) {
+	    boolean isUpdated = false;
+	    Connection con = DBUtil.provideConnection();
+	    PreparedStatement ps = null;
+
+	    try {
+	        ps = con.prepareStatement("UPDATE user SET password = ? WHERE email = ?");
+	        ps.setString(1, password);
+	        ps.setString(2, email);
+
+	        int rowsAffected = ps.executeUpdate();
+	        isUpdated = (rowsAffected > 0);
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (ps != null) ps.close();
+	            if (con != null) con.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return isUpdated;
+	}
 }

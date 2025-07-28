@@ -28,4 +28,6 @@ public interface UserService {
 
 	UserBean getUserDetails(String email);
 
+	public boolean updatePassword(String email, String password);
+
 }
