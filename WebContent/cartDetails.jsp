@@ -79,6 +79,7 @@
 					<th>Add</th>
 					<th>Remove</th>
 					<th>Amount</th>
+					<th>Weight</th>
 				</tr>
 			</thead>
 			<tbody
@@ -91,8 +92,8 @@
 				List<CartBean> cartItems = new ArrayList<CartBean>();
 				cartItems = cart.getAllCartItems(userName);
 				double totAmount = 0;
+				double totalWeight = 0;
 				for (CartBean item : cartItems) {
-
 					String prodId = item.getProdId();
 
 					int prodQuantity = item.getQuantity();
@@ -100,6 +101,9 @@
 					ProductBean product = new ProductServiceImpl().getProductDetails(prodId);
 
 					double currAmount = product.getProdPrice() * prodQuantity;
+
+					double currWeight = (product.getProdWeight() * prodQuantity )/ 1000;
+					totalWeight += currWeight;
 
 					totAmount += currAmount;
 
@@ -125,6 +129,7 @@
 						href="cartDetails.jsp?add=0&uid=<%=userName%>&pid=<%=product.getProdId()%>&avail=<%=product.getProdQuantity()%>&qty=<%=prodQuantity%>"><i
 							class="fa fa-minus"></i></a></td>
 					<td><%=currAmount%></td>
+					<td><%=currWeight%></td>
 				</tr>
 
 				<%
@@ -133,10 +138,13 @@
 				%>
 
 				<tr style="background-color: grey; color: white;">
-					<td colspan="6" style="text-align: center;">Total Amount to
-						Pay (in Rupees)</td>
-					<td><%=totAmount%></td>
+				    <td colspan="6" style="text-align: center;">
+				        Total Amount to Pay (in Rupees) and total weight (in Kg)
+				    </td>
+				    <td><%=totAmount%></td>
+				    <td><%=totalWeight%></td>
 				</tr>
+
 				<%
 				if (totAmount != 0) {
 				%>
@@ -146,9 +154,9 @@
 							<button formaction="userHome.jsp"
 								style="background-color: black; color: white;">Cancel</button>
 						</form></td>
-					<td colspan="2" align="center"><form method="post">
+					<td colspan="3" align="center"><form method="post">
 							<button style="background-color: blue; color: white;"
-								formaction="./CheckoutServlet?amount=<%=totAmount%>">Checkout</button>
+								formaction="./CheckoutServlet?amount=<%=totAmount%>&weight=<%=totalWeight%>">Checkout</button>
 						</form></td>
 
 				</tr>

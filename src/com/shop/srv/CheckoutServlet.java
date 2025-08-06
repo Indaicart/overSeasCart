@@ -32,6 +32,7 @@ public class CheckoutServlet extends HttpServlet {
         }
 
         String amount = request.getParameter("amount");
+        String weight = request.getParameter("weight");
 
         // You can fetch user details from database if needed
         UserServiceImpl userService = new UserServiceImpl();
@@ -39,6 +40,7 @@ public class CheckoutServlet extends HttpServlet {
 
         request.setAttribute("user", user);
         request.setAttribute("amount", amount);
+        request.setAttribute("weight", weight);
         request.getRequestDispatcher("checkout.jsp").forward(request, response);
     }
 }

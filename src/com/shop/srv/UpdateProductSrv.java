@@ -50,6 +50,7 @@ public class UpdateProductSrv extends HttpServlet {
 		String prodName = request.getParameter("name");
 		String prodType = request.getParameter("type");
 		String prodInfo = request.getParameter("info");
+		int prodWeight = Integer.parseInt(request.getParameter("weight"));
 		Double prodPrice = Double.parseDouble(request.getParameter("price"));
 		Integer prodQuantity = Integer.parseInt(request.getParameter("quantity"));
 
@@ -57,6 +58,7 @@ public class UpdateProductSrv extends HttpServlet {
 		product.setProdId(prodId);
 		product.setProdName(prodName);
 		product.setProdInfo(prodInfo);
+		product.setProdWeight(prodWeight);
 		product.setProdPrice(prodPrice);
 		product.setProdQuantity(prodQuantity);
 		product.setProdType(prodType);

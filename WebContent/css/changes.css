@@ -96,6 +96,12 @@ button:hover {
 	font-size: 20px;
 }
 
+.pricess {
+	color: #d5d5d5 !important;
+	font-weight: bold;
+	font-size: 50px;
+}
+
 .productname {
 	color: green;
 	font-size: 15px;

@@ -77,6 +77,9 @@
 					%>
 					<p class="productinfo"><%=description%>..
 					</p>
+					<p style="color: blue; font-size: 18px;">
+					   <%=product.getProdWeight()%> grams
+					</p>
 					<p class="price">
 						Rs
 						<%=product.getProdPrice()%>

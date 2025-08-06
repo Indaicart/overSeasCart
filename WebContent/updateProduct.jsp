@@ -103,6 +103,11 @@
 					<textarea name="info" class="form-control text-align-left"
 						id="last_name" required><%=product.getProdInfo()%></textarea>
 				</div>
+				<!-- New Field: Product Weight -->
+                <div class="form-group">
+                    <label for="product_weight">Product Weight (in grams)</label>
+                    <input type="number" value="<%=product.getProdWeight()%>" placeholder="Enter Product Weight" name="weight" class="form-control" id="product_weight" required>
+                </div>
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label for="last_name">Unit Price</label> <input type="number"

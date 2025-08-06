@@ -20,6 +20,7 @@
 	    return;
 	}
     String amount = (String) request.getAttribute("amount");
+    String weight = (String) request.getAttribute("weight");
 %>
 
 <div class="container">
@@ -49,6 +50,7 @@
                 <div class="panel-heading"><strong>Order Summary</strong></div>
                 <div class="panel-body">
                     <p><strong>Total Amount:</strong> ₹ <%= amount %></p>
+                    <p><strong>Total weight:</strong> <%= weight%> kg </p>
                     <form action="CreateOrderServlet" method="post">
                         <input type="hidden" name="amount" value="<%= amount %>"/>
                         <button class="btn btn-success btn-lg" type="submit">Pay Now</button>
