@@ -1,5 +1,6 @@
 package com.shop.service.impl;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,20 +15,43 @@ import com.shop.service.ProductService;
 import com.shop.utility.DBUtil;
 import com.shop.utility.IDUtil;
 import com.shop.utility.MailMessage;
+import com.shop.DAO.productImagesDAO;
 
 public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public String addProduct(String prodName, String prodType, String prodInfo, int prodWeight, double prodPrice, int prodQuantity,
-			InputStream prodImage) {
+			InputStream prodImage, List<InputStream> allImages) {
 		String status = null;
 		String prodId = IDUtil.generateId();
 
 		ProductBean product = new ProductBean(prodId, prodName, prodType, prodInfo, prodWeight, prodPrice, prodQuantity, prodImage);
 
 		status = addProduct(product);
+		int sortOrder = 1;
+		boolean imgSaved = false;
+		productImagesDAO productImagesDAO = new productImagesDAO();
+		for (InputStream img : allImages) {
+			imgSaved = productImagesDAO.insertProductImage(prodId, img, sortOrder == 1, sortOrder);
+			try {
+				if (img != null) {
+					img.close(); // safe to close now
+					System.out.println("Closed InputStream for sortOrder: " + sortOrder);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
-		return status;
+			sortOrder++;
+		}
+        if (imgSaved) {
+            System.out.println("Images saved succesfully");
+        }else{
+			System.out.println("Images are not saved");
+		}
+
+
+        return status;
 	}
 
 	@Override

@@ -8,7 +8,7 @@ import com.shop.beans.ProductBean;
 public interface ProductService {
 
 	public String addProduct(String prodName, String prodType, String prodInfo, int prodWeight, double prodPrice, int prodQuantity,
-			InputStream prodImage);
+			InputStream prodImage, List<InputStream> allImages);
 
 	public String addProduct(ProductBean product);
 

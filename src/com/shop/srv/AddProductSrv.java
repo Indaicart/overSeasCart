@@ -1,7 +1,13 @@
 package com.shop.srv;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -50,15 +56,31 @@ public class AddProductSrv extends HttpServlet {
 		double prodPrice = Double.parseDouble(request.getParameter("price"));
 		int prodQuantity = Integer.parseInt(request.getParameter("quantity"));
 
-		Part part = request.getPart("image");
+		Collection<Part> parts = request.getParts();
+		List<byte[]> imageBytesList = new ArrayList<>();
+		byte[] firstImageBytes = null;
 
-		InputStream inputStream = part.getInputStream();
+		for (Part part : parts) {
+			if (part.getName().equals("images") && part.getSize() > 0) {
+				byte[] imgBytes = toByteArray(part.getInputStream());
 
-		InputStream prodImage = inputStream;
+				if (firstImageBytes == null) {
+					firstImageBytes = imgBytes; // product table
+				}
+				imageBytesList.add(imgBytes);   // product_images table
+			}
+		}
+
+// then later
+		InputStream firstImage = new ByteArrayInputStream(Objects.requireNonNull(firstImageBytes));
+		List<InputStream> allImages = new ArrayList<>();
+		for (byte[] imgBytes : imageBytesList) {
+			allImages.add(new ByteArrayInputStream(imgBytes));
+		}
 
 		ProductServiceImpl product = new ProductServiceImpl();
 
-		status = product.addProduct(prodName, prodType, prodInfo, prodWeight, prodPrice, prodQuantity, prodImage);
+		status = product.addProduct(prodName, prodType, prodInfo, prodWeight, prodPrice, prodQuantity, firstImage, allImages);
 
 		RequestDispatcher rd = request.getRequestDispatcher("addProduct.jsp?message=" + status);
 		rd.forward(request, response);
@@ -70,5 +92,16 @@ public class AddProductSrv extends HttpServlet {
 
 		doGet(request, response);
 	}
+
+	private byte[] toByteArray(InputStream input) throws IOException {
+		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+		byte[] data = new byte[8192];
+		int nRead;
+		while ((nRead = input.read(data, 0, data.length)) != -1) {
+			buffer.write(data, 0, nRead);
+		}
+		return buffer.toByteArray();
+	}
+
 
 }

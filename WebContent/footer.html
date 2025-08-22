@@ -1,72 +1,129 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Shoping Center</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="css/changes.css">
+	<title>Shopping Center</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<link rel="stylesheet"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="css/changes.css">
+
+	<style>
+		.site-footer {
+            background: #343434;
+            color: #F8F8F8;
+            padding: 45px 0 18px 0;
+            border-radius: 18px 18px 0 0;
+            margin-top: 100px;
+            box-shadow: 0 7px 24px rgba(60,60,80,0.12);
+        }
+        .site-footer h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+        }
+        .site-footer em {
+            color: #97ffad;
+            font-size: 1.02rem;
+        }
+        .site-footer .footer-contact p {
+            margin-bottom: 8px;
+            font-size: 1.09rem;
+            color: #eee;
+            letter-spacing: 0.3px;
+        }
+        .site-footer .footer-contact span {
+            color: #80ffb5;
+            margin-right: 5px;
+        }
+        .site-footer input,
+        .site-footer textarea {
+            border-radius: 7px;
+            border: none;
+            background: #f7f7f7;
+            margin-bottom: 14px;
+            box-shadow: 0 1px 4px rgba(140,200,150,0.07);
+            color: #252525;
+            font-size: 1rem;
+            transition: box-shadow .15s;
+        }
+        .site-footer input:focus,
+        .site-footer textarea:focus {
+            outline: none !important;
+            box-shadow: 0 0 8px #228d2b66 !important;
+        }
+        .site-footer .btn-send {
+            background: #228d2b;
+            color: #fff;
+            font-weight: 500;
+            border-radius: 7px;
+            padding: 8px 32px;
+            font-size: 1.09rem;
+            border: none;
+            transition: background 0.18s;
+            margin-top: 4px;
+            box-shadow: 0 2px 8px rgba(34, 141, 43, .08);
+        }
+        .site-footer .btn-send:hover,
+        .site-footer .btn-send:focus {
+            background: #1b7435;
+            color: #ffffff;
+        }
+        @media (max-width: 767px) {
+            .site-footer .footer-contact,
+            .site-footer .footer-form {
+                text-align: center;
+            }
+            .site-footer h3 {
+                font-size: 1.4rem;
+            }
+            .site-footer {
+                padding: 24px 0 10px 0;
+            }
+        }
+	</style>
 </head>
 <body style="background-color: #E6F9E6;">
-	<!-- Start the footer Contacts -->
-	<!-- <a name="contact"></a> -->
-	<div class="container-fluid"
-		style="background-color: #454545; color: white; margin-top: 200px;">
-		<div class="container">
-			<h3 class="text-center">Contact</h3>
-			<p class="text-center">
-				<em>We love our fans!</em>
-			</p>
-			<div class="row test">
-				<div class="col-md-4">
-					<p>Fan? Drop a note.</p>
-					<p>
-						<span class="glyphicon glyphicon-map-marker"></span>Bitter Code
-					</p>
-					<p>
-						<span class="glyphicon glyphicon-phone"></span>Phone: +91
-						1515151515
-					</p>
-					<p>
-						<span class="glyphicon glyphicon-envelope"></span>Email:
-						thebittercode@gmail.com
-					</p>
-					<p>
-						<span class="glyphicon glyphicon-copyright-mark"></span>
-						BitterCode - 2023
-					</p>
-				</div>
-				<div class="col-md-8">
-					<form action="fansMessage" method="post">
-						<div class="row">
-							<div class="col-sm-6 form-group">
-								<input class="form-control" id="name" name="name"
-									placeholder="Name" type="text" required>
-							</div>
-							<div class="col-sm-6 form-group">
-								<input class="form-control" id="email" name="email"
-									placeholder="Email" type="email" required>
-							</div>
+<!-- Start the footer Contacts -->
+<div class="container-fluid site-footer">
+	<div class="container">
+		<h3 class="text-center">Contact</h3>
+		<p class="text-center"><em>We love our fans!</em></p>
+		<div class="row" style="margin-top:32px;">
+			<div class="col-md-4 footer-contact" style="margin-bottom:24px;">
+				<p>Fan? Drop a note.</p>
+				<p><span class="glyphicon glyphicon-map-marker"></span> Bitter Code</p>
+				<p><span class="glyphicon glyphicon-phone"></span> Phone: +91 1515151515</p>
+				<p><span class="glyphicon glyphicon-envelope"></span> Email: thebittercode@gmail.com</p>
+				<p><span class="glyphicon glyphicon-copyright-mark"></span> BitterCode - 2023</p>
+			</div>
+			<div class="col-md-8 footer-form">
+				<form action="fansMessage" method="post">
+					<div class="row">
+						<div class="col-sm-6 form-group">
+							<input class="form-control" id="name" name="name"
+								   placeholder="Name" type="text" required>
 						</div>
-						<textarea class="form-control" id="comments" name="comments"
-							placeholder="Comment" rows="5" required></textarea>
-						<div class="row">
-							<div class="col-md-12 form-group">
-								<button class="btn pull-right" type="submit">Send</button>
-							</div>
+						<div class="col-sm-6 form-group">
+							<input class="form-control" id="email" name="email"
+								   placeholder="Email" type="email" required>
 						</div>
-					</form>
-				</div>
+					</div>
+					<textarea class="form-control" id="comments" name="comments"
+							  placeholder="Comment" rows="5" required></textarea>
+					<div class="row">
+						<div class="col-md-12 form-group">
+							<button class="btn btn-send pull-right" type="submit">Send</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
-	<!-- End of Contact or about us -->
-
+</div>
+<!-- End of Contact or about us -->
 </body>
 </html>

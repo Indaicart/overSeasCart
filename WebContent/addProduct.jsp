@@ -100,10 +100,29 @@
 				</div>
 				<div>
 					<div class="col-md-12 form-group">
-						<label for="last_name">Product Image</label> <input type="file"
-							placeholder="Select Image" name="image" class="form-control"
-							id="last_name" required>
-					</div>
+                        <label for="product_images">Product Images</label>
+
+                        <!-- Container where file inputs will be added -->
+                        <div id="imageInputs">
+                            <input type="file" name="images" class="form-control" required>
+                        </div>
+
+                        <!-- Button to add new file inputs -->
+                        <button type="button" id="addMoreBtn" class="btn btn-info" style="margin-top:5px;">
+                            + Add Another Image
+                        </button>
+                    </div>
+                    <script>
+                    document.getElementById("addMoreBtn").addEventListener("click", function() {
+                        let newInput = document.createElement("input");
+                        newInput.type = "file";
+                        newInput.name = "images";
+                        newInput.className = "form-control";
+                        newInput.style.marginTop = "5px";
+                        document.getElementById("imageInputs").appendChild(newInput);
+                    });
+                    </script>
+
 				</div>
 				<div class="row">
 					<div class="col-md-6 text-center" style="margin-bottom: 2px;">

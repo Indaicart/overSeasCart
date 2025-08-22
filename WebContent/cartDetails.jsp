@@ -102,7 +102,7 @@
 
 					double currAmount = product.getProdPrice() * prodQuantity;
 
-					double currWeight = (product.getProdWeight() * prodQuantity )/ 1000;
+					double currWeight = (product.getProdWeight() * prodQuantity )/ 1000.0;
 					totalWeight += currWeight;
 
 					totAmount += currAmount;
