@@ -16,11 +16,14 @@
 <%
     UserBean user = (UserBean) request.getAttribute("user");
 	if (user == null) {
-	    response.sendRedirect("login.jsp"); // or show an error message
+		System.out.println("In checkout.jsp, moving to login page");
+		response.sendRedirect("login.jsp?message=Session Expired, Login Again!!"); // or show an error message
 	    return;
 	}
     String amount = (String) request.getAttribute("amount");
     String weight = (String) request.getAttribute("weight");
+    String shipmentCharge = (String) request.getAttribute("shipmentCharge");
+    String orderTotal = (String) request.getAttribute("orderTotal");
 %>
 
 <div class="container">
@@ -49,10 +52,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><strong>Order Summary</strong></div>
                 <div class="panel-body">
-                    <p><strong>Total Amount:</strong> ₹ <%= amount %></p>
-                    <p><strong>Total weight:</strong> <%= weight%> kg </p>
+                    <p><strong>Cart Total:</strong> ₹ <%= amount %></p>
+                    <p><strong>Weight:</strong> <%= weight%> kg </p>
+                    <p><strong>Shipment Charges:</strong> ₹ <%= shipmentCharge%> </p>
+                    <p><strong>Order Total:</strong> ₹ <%= orderTotal%></p>
+                    <input type="checkbox" id="in_dollar" name="in_dollar">
+					<label for="in_dollar"> Want to pay in $</label><br>
                     <form action="CreateOrderServlet" method="post">
-                        <input type="hidden" name="amount" value="<%= amount %>"/>
+                        <input type="hidden" name="amount" value="<%= orderTotal %>"/>
                         <button class="btn btn-success btn-lg" type="submit">Pay Now</button>
                     </form>
                 </div>

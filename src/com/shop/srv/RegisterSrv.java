@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shop.beans.UserBean;
 import com.shop.service.impl.UserServiceImpl;
+import com.shop.utility.PasswordUtil;
 
 /**
  * Servlet implementation class RegisterSrv
@@ -32,13 +33,14 @@ public class RegisterSrv extends HttpServlet {
 		String confirmPassword = request.getParameter("confirmPassword");
 		String status = "";
 		if (password != null && password.equals(confirmPassword)) {
+			
 			UserBean user = new UserBean(userName, mobileNo, emailId, address, pinCode, password);
 
 			UserServiceImpl dao = new UserServiceImpl();
 
 			status = dao.registerUser(user);
 		} else {
-			status = "Password not matching!";
+			status = "Passwords not matching!";
 		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("register.jsp?message=" + status);

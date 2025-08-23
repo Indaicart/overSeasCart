@@ -55,16 +55,15 @@ public class LoginSrv extends HttpServlet {
 		
 		if (status.equalsIgnoreCase("valid")) {
 			// valid user
-
 			session.setAttribute("username", userName);
 			session.setAttribute("password", password);
 			session.setAttribute("usertype", userType);
 
 			rd.forward(request, response);
-			System.out.println("Login successfull");
+			System.out.println("Login successfull!!!");
 		} else {
 			// invalid user;
-			System.out.println("Login unsuccessfull");
+			System.out.println("Login unsuccessfull!!!");
 			rd = request.getRequestDispatcher("login.jsp?message=" + status);
 			rd.forward(request, response);
 		}

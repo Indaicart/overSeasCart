@@ -1,6 +1,7 @@
 package com.shop.srv;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,13 +35,15 @@ public class ChangePasswordSrv extends HttpServlet {
 		}
 		UserServiceImpl userService = new UserServiceImpl();
 		boolean isUpdated = userService.updatePassword(email, password);
+		ResourceBundle rb = ResourceBundle.getBundle("application");
+		String supportEmail = rb.getString("shipment.charge");
 
 		if (isUpdated) {
 			// Send mail
 			String htmlMessage = "<html><body>" +
 		              "<h2 style='color:green;'>Your Password is changed</h2>" +
-		              "<p>Your password has been reset. You can now log in with your new credentials.</p>" +
-		              "<p>Your password was changed successfully. If this wasn't you, please contact support immediately.</p>" +
+		              "<p>Your password was changed successfully. You can now log in with your new credentials.</p>" +
+		              "<p>If this wasn't you, please contact " + supportEmail + " immediately.</p>" +
 		              "</body></html>";
 			String mailSubject = "Password Reset Successfull";
 			String status = MailMessage.sendMessage(email, mailSubject, htmlMessage);

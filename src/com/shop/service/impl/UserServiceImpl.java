@@ -10,6 +10,7 @@ import com.shop.constants.IUserConstants;
 import com.shop.service.UserService;
 import com.shop.utility.DBUtil;
 import com.shop.utility.MailMessage;
+import com.shop.utility.PasswordUtil;
 
 public class UserServiceImpl implements UserService {
 
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService {
 			ps.setLong(3, user.getMobile());
 			ps.setString(4, user.getAddress());
 			ps.setInt(5, user.getPinCode());
-			ps.setString(6, user.getPassword());
+			ps.setString(6, PasswordUtil.hashPassword(user.getPassword()));
 
 			int k = ps.executeUpdate();
 
@@ -112,15 +113,22 @@ public class UserServiceImpl implements UserService {
 
 		try {
 
-			ps = con.prepareStatement("select * from user where email=? and password=?");
-
+			ps = con.prepareStatement("select * from user where email=?");
 			ps.setString(1, emailId);
-			ps.setString(2, password);
-
 			rs = ps.executeQuery();
 
-			if (rs.next())
-				status = "valid";
+			if (rs.next()) {
+			    String dbPassword = rs.getString("password"); // hashed password from DB
+
+			    // Verify using BCrypt
+			    if (PasswordUtil.checkPassword(password, dbPassword)) {
+			        status = "valid";
+			    } else {
+			        status = "invalid";
+			    }
+			} else {
+			    status = "invalid"; // no user found
+			}
 
 		} catch (SQLException e) {
 			status = "Error: " + e.getMessage();
@@ -144,21 +152,25 @@ public class UserServiceImpl implements UserService {
 		ResultSet rs = null;
 
 		try {
-			ps = con.prepareStatement("select * from user where email=? and password=?");
+			ps = con.prepareStatement("select * from user where email=?");
 			ps.setString(1, emailId);
-			ps.setString(2, password);
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				user = new UserBean();
-				user.setName(rs.getString("name"));
-				user.setMobile(rs.getLong("mobile"));
-				user.setEmail(rs.getString("email"));
-				user.setAddress(rs.getString("address"));
-				user.setPinCode(rs.getInt("pincode"));
-				user.setPassword(rs.getString("password"));
+			    String dbPassword = rs.getString("password"); // hashed password from DB
 
-				return user;
+			    // Verify using BCrypt
+			    if (PasswordUtil.checkPassword(password, dbPassword)) {
+			    	user = new UserBean();
+					user.setName(rs.getString("name"));
+					user.setMobile(rs.getLong("mobile"));
+					user.setEmail(rs.getString("email"));
+					user.setAddress(rs.getString("address"));
+					user.setPinCode(rs.getInt("pincode"));
+					user.setPassword(rs.getString("password"));
+
+					return user;
+			    }
 			}
 
 		} catch (SQLException e) {
@@ -299,7 +311,7 @@ public class UserServiceImpl implements UserService {
 
 	    try {
 	        ps = con.prepareStatement("UPDATE user SET password = ? WHERE email = ?");
-	        ps.setString(1, password);
+	        ps.setString(1, PasswordUtil.hashPassword(password));
 	        ps.setString(2, email);
 
 	        int rowsAffected = ps.executeUpdate();
@@ -316,6 +328,9 @@ public class UserServiceImpl implements UserService {
 	        }
 	    }
 
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		
 	    return isUpdated;
 	}
 }
