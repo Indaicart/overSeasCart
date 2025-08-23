@@ -11,6 +11,30 @@ pageEncoding="ISO-8859-1"%>
     <link rel="stylesheet" href="css/changes.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+     <!--Bootstrap Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    
+	<script>
+      function togglePassword() {
+        const pwd = document.getElementById("password");
+        const icon = document.getElementById("toggleIcon");
+        if (pwd.type === "password") {
+          pwd.type = "text";
+          icon.classList.remove("bi-eye");
+          icon.classList.add("bi-eye-slash");
+        } else {
+          pwd.type = "password";
+          icon.classList.remove("bi-eye-slash");
+          icon.classList.add("bi-eye");
+        }
+      }
+      
+      function setUserType() {
+          const username = document.getElementById("username").value.trim();
+          const password = document.getElementById("password").value.trim();
+          return true; // allow form submission
+        }
+    </script>
   </head>
   <body style="background-color: #e6f9e6">
     <%@ include file="header.jsp"%> <% String message =
@@ -44,7 +68,7 @@ pageEncoding="ISO-8859-1"%>
               <label for="username">Username</label>
               <input
                 type="email"
-                placeholder="Enter Username"
+                placeholder="Enter Registered Email"
                 name="username"
                 class="form-control"
                 id="username"
@@ -55,14 +79,21 @@ pageEncoding="ISO-8859-1"%>
           <div class="row">
             <div class="col-md-12 form-group">
               <label for="password">Password</label>
-              <input
-                type="password"
-                placeholder="Enter Password"
-                name="password"
-                class="form-control"
-                id="password"
-                required
-              />
+              <div class="input-group">
+                <input
+                  type="password"
+                  placeholder="Enter Password"
+                  name="password"
+                  class="form-control"
+                  id="password"
+                  required
+                />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" onclick="togglePassword()">
+                    <i class="bi bi-eye" id="toggleIcon"></i>
+                  </button>
+                </span>
+              </div>
             </div>
           </div>
           <div class="row">
@@ -83,22 +114,6 @@ pageEncoding="ISO-8859-1"%>
         </form>
       </div>
     </div>
-    <script>
-      function setUserType() {
-        const username = document.getElementById("username").value.trim();
-        const password = document.getElementById("password").value.trim();
-        const userrole = document.getElementById("userrole");
-        debugger;
-
-        if (username === "admin@gmail.com" && password === "admin") {
-          userrole.value = "admin";
-        } else {
-          userrole.value = "customer";
-        }
-
-        return true; // allow form submission
-      }
-    </script>
 
     <%@ include file="footer.html"%>
   </body>

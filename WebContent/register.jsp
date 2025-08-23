@@ -11,6 +11,25 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<script>
+function togglePassword() {
+  const pwd = document.getElementById("password");
+  const icon = document.getElementById("toggleIcon");
+  if (pwd.type === "password") {
+    pwd.type = "text";
+    icon.classList.remove("bi-eye");
+    icon.classList.add("bi-eye-slash");
+  } else {
+    pwd.type = "password";
+    icon.classList.remove("bi-eye-slash");
+    icon.classList.add("bi-eye");
+  }
+}
+</script>
 </head>
 <body style="background-color: #E6F9E6;">
 
@@ -41,7 +60,8 @@
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label for="name">Name</label> 
-						<input type="text" name="name" class="form-control" id="name" required>
+						<input type="text" name="name" class="form-control" id="name" required 
+						value="<%= request.getAttribute("name") != null ? request.getAttribute("name") : "" %>">
 					</div>
 					<div class="col-md-6 form-group">
 						<label for="email">Email</label> 
@@ -52,22 +72,37 @@
 				</div>
 				<div class="form-group">
 					<label for="address">Address</label>
-					<textarea name="address" class="form-control" id="address" required></textarea>
+					<textarea name="address" class="form-control" id="address" required><%=request.getAttribute("address") != null ? request.getAttribute("address") : ""%></textarea>
 				</div>
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label for="mobile">Mobile</label> 
-						<input type="number" name="mobile" class="form-control" id="mobile" required>
+						<input type="number" name="mobile" class="form-control" id="mobile" required
+						value="<%= request.getAttribute("mobile") != null ? request.getAttribute("mobile") : "" %>">
 					</div>
 					<div class="col-md-6 form-group">
 						<label for="last_name">Pin Code</label> 
-						<input type="number" name="pincode" class="form-control" id="pincode" required>
+						<input type="number" name="pincode" class="form-control" id="pincode" required
+						value="<%= request.getAttribute("pincode") != null ? request.getAttribute("pincode") : "" %>">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 form-group">
-						<label for="password">Password</label> 
-						<input type="password" name="password" class="form-control" id="password" required>
+						<label for="password" class="form-label">Password</label>
+						<div class="input-group">
+							<input type="password" name="password" class="form-control"
+								id="password" required minlength="8" maxlength="20"
+								pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}"
+								title="Password must be 8-20 characters, include uppercase, lowercase, and a number">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" onclick="togglePassword()">
+									<i class="bi bi-eye" id="toggleIcon"></i>
+								</button>
+							</span>
+						</div>
+						<small class="form-text text-muted">
+							Must be 8-20 characters, with at least one uppercase, one lowercase, and one number.
+						</small>
 					</div>
 					<div class="col-md-6 form-group">
 						<label for="last_name">Confirm Password</label> 

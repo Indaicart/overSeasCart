@@ -176,9 +176,24 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-------------------------------------------------------------------
+-- ----------------------------------------------------------------
 -- alter product table for product weight
-------------------------------------------------------------------
-ALTER TABLE shopping-cart.product ADD COLUMN pweight INT NULL DEFAULT NULL AFTER pinfo;
--------------------------------------------------------------------
+-- ----------------------------------------------------------------
+ALTER TABLE `shopping-cart`.`product` ADD COLUMN pweight INT NULL DEFAULT NULL AFTER pinfo;
+-- -----------------------------------------------------------------
 
+-- ----------------------------------------------------------------
+-- add constants table
+-- ----------------------------------------------------------------
+CREATE TABLE `shopping-cart`.`constants` (
+  `key` VARCHAR(45) NOT NULL,
+  `value` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`key`));
+-- ----------------------------------------------------------------
+
+-- ----------------------------------------------------------------
+-- increase the length of password column to 60
+-- ----------------------------------------------------------------
+ALTER TABLE `shopping-cart`.`user` 
+CHANGE COLUMN `password` `password` VARCHAR(60) NOT NULL;
+-- ----------------------------------------------------------------
