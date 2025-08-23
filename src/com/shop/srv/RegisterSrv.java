@@ -31,6 +31,7 @@ public class RegisterSrv extends HttpServlet {
 		String password = request.getParameter("password");
 		String confirmPassword = request.getParameter("confirmPassword");
 		String status = "";
+
 		if (password != null && password.equals(confirmPassword)) {
 			
 			UserBean user = new UserBean(name, mobile, email, address, pincode, password);
@@ -42,13 +43,19 @@ public class RegisterSrv extends HttpServlet {
 			status = "Your password and confirmation password do not match!";
 		}
 
-		request.setAttribute("name", name);
-		request.setAttribute("mobile", mobile);
-		request.setAttribute("address", address);
-		request.setAttribute("pincode", pincode);
-		request.setAttribute("emailPrefilled", email);
-		RequestDispatcher rd = request.getRequestDispatcher("register.jsp?message=" + status);
-		rd.forward(request, response);
+		if (status.equals("User Registered Successfully!")) {
+			RequestDispatcher rd = request.getRequestDispatcher("login.jsp?message=" + status);
+			rd.forward(request, response);
+		}
+		else {
+			request.setAttribute("name", name);
+			request.setAttribute("mobile", mobile);
+			request.setAttribute("address", address);
+			request.setAttribute("pincode", pincode);
+			request.setAttribute("emailPrefilled", email);
+			RequestDispatcher rd = request.getRequestDispatcher("register.jsp?message=" + status);
+			rd.forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

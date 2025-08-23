@@ -30,12 +30,12 @@ public class UserServiceImpl implements UserService {
 
 		String status = "User Registration Failed!";
 
-		boolean isRegtd = isRegistered(user.getEmail());
-
-		if (isRegtd) {
-			status = "Email Id Already Registered!";
-			return status;
-		}
+//		boolean isRegtd = isRegistered(user.getEmail());
+//
+//		if (isRegtd) {
+//			status = "Email Id Already Registered!";
+//			return status;
+//		}
 		Connection conn = DBUtil.provideConnection();
 		PreparedStatement ps = null;
 		if (conn != null) {
