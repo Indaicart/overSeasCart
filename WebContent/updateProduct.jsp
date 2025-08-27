@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page
-	import="com.shop.service.impl.*, com.shop.service.*,com.shop.beans.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*"%>
+	import="com.shop.service.impl.*, com.shop.service.*, com.shop.utility.*, com.shop.beans.*, java.util.*, javax.servlet.ServletOutputStream, java.io.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -110,8 +110,8 @@
                 </div>
 				<div class="row">
 					<div class="col-md-6 form-group">
-						<label for="last_name">Unit Price</label> <input type="number"
-							value="<%=product.getProdPrice()%>"
+						<label for="last_name">Unit Price(Enter in INR)</label> <input type="number"
+							value="<%=product.getProdPrice() * Double.parseDouble(DBConstantsUtil.getValueFromDB("USD_INR"))%>"
 							placeholder="Enter Unit Price" name="price" class="form-control"
 							id="last_name" required>
 					</div>

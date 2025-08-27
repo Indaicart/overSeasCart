@@ -58,16 +58,17 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><strong>Order Summary</strong></div>
                 <div class="panel-body">
-                    <p><strong>Cart Total:</strong> ₹ <%= amount %></p>
+                    <p><strong>Cart Total:</strong> $ <%= amount %></p>
                     <p><strong>Weight:</strong> <%= weight%> kg </p>
-                    <p><strong>Shipment Charges:</strong> ₹ <%= shipmentCharge%> </p>
-                    <p><strong>Order Total:</strong> ₹ <%= orderTotal%></p>
-                    <input type="checkbox" id="in_dollar" name="in_dollar">
-					<label for="in_dollar"> Want to pay in $</label><br>
+                    <p><strong>Shipment Charges:</strong> $ <%= shipmentCharge%> </p>
+                    <p><strong>Order Total:</strong> $ <%= orderTotal%></p>
+                    <div style="display: flex; gap: 10px;">
+    				<button class="btn btn-success btn-lg">Pay in INR</button>
                     <form action="CreateOrderServlet" method="post">
                         <input type="hidden" name="amount" value="<%= orderTotal %>"/>
                         <button class="btn btn-success btn-lg" type="submit">Pay Now</button>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>

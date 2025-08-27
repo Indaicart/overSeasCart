@@ -83,14 +83,10 @@
                        <%=product.getProdWeight()%> grams
                     </p>
 					<p class="price">
-						Rs
+						$
 						<%=product.getProdPrice()%>
 					</p>
 					<form method="post">
-						<button type="submit"
-							formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"
-							class="btn btn-danger">Remove Product</button>
-						&nbsp;&nbsp;&nbsp;
 						<button type="submit"
 							formaction="updateProduct.jsp?prodid=<%=product.getProdId()%>"
 							class="btn btn-primary">Update Product</button>

@@ -209,7 +209,7 @@
           %>
           <div class="productinfo1"><%=description%>..</div>
           <div class="prod-weight1"><%=product.getProdWeight()%> grams</div>
-          <div class="price1">Rs <%=product.getProdPrice()%></div>
+          <div class="price1">$ <%=product.getProdPrice()%></div>
           <form method="post">
             <%
                if (cartQty == 0) {
@@ -227,7 +227,7 @@
                 formaction="./AddtoCart?uid=<%=userName%>&pid=<%=product.getProdId()%>&pqty=0"
                 class="btn1 btn1-danger">Remove From Cart</button>
             <button type="submit" formaction="cartDetails.jsp"
-                class="btn1 btn1-success">Checkout</button>
+                class="btn1 btn1-success">Go To Cart</button>
             <%
                }
             %>

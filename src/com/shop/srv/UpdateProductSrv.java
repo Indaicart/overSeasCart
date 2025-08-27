@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.shop.beans.ProductBean;
 import com.shop.service.impl.ProductServiceImpl;
+import com.shop.utility.DBConstantsUtil;
 
 /**
  * Servlet implementation class UpdateProductSrv
@@ -52,6 +53,9 @@ public class UpdateProductSrv extends HttpServlet {
 		String prodInfo = request.getParameter("info");
 		int prodWeight = Integer.parseInt(request.getParameter("weight"));
 		Double prodPrice = Double.parseDouble(request.getParameter("price"));
+		prodPrice = prodPrice / Double.parseDouble(DBConstantsUtil.getValueFromDB("USD_INR"));
+		// round to 2 decimal places
+		prodPrice = Math.round(prodPrice * 100.0) / 100.0;
 		Integer prodQuantity = Integer.parseInt(request.getParameter("quantity"));
 
 		ProductBean product = new ProductBean();

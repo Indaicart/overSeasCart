@@ -88,7 +88,7 @@
                 </div>
 				<div class="row">
 					<div class="col-md-6 form-group">
-						<label for="last_name">Unit Price</label> <input type="number"
+						<label for="last_name">Unit Price(Enter in INR)</label> <input type="number"
 							placeholder="Enter Unit Price" name="price" class="form-control"
 							id="last_name" required>
 					</div>

@@ -139,7 +139,7 @@
 
 				<tr style="background-color: grey; color: white;">
 				    <td colspan="6" style="text-align: center;">
-				        Total Amount to Pay (in Rupees) and total weight (in Kg)
+				        Total Amount to Pay (in USD) and total weight (in Kg)
 				    </td>
 				    <td><%=totAmount%></td>
 				    <td><%=totalWeight%></td>

@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.shop.service.impl.ProductServiceImpl;
+import com.shop.utility.DBConstantsUtil;
 
 /**
  * Servlet implementation class AddProductSrv
@@ -54,7 +55,12 @@ public class AddProductSrv extends HttpServlet {
 		String prodInfo = request.getParameter("info");
 		int prodWeight = Integer.parseInt(request.getParameter("weight"));
 		double prodPrice = Double.parseDouble(request.getParameter("price"));
+		prodPrice = prodPrice / (Double.parseDouble(DBConstantsUtil.getValueFromDB("USD_INR")));
 		int prodQuantity = Integer.parseInt(request.getParameter("quantity"));
+		
+
+		// round to 2 decimal places
+		prodPrice = Math.round(prodPrice * 100.0) / 100.0;
 
 		Collection<Part> parts = request.getParts();
 		List<byte[]> imageBytesList = new ArrayList<>();

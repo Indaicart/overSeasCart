@@ -45,12 +45,12 @@ public class CheckoutServlet extends HttpServlet {
         request.setAttribute("amount", amount);
         request.setAttribute("weight", weight);
         
-//        String shipmentChargePerKg = DBConstantsUtil.getValueFromDB("ship_charge");
+        String shipmentChargePerKg = DBConstantsUtil.getValueFromDB("ship_charge");
         
-        ResourceBundle rb = ResourceBundle.getBundle("application");
-        String shipmentChargePerKg = rb.getString("shipment.charge");
+//        ResourceBundle rb = ResourceBundle.getBundle("application");
+//        String shipmentChargePerKg = rb.getString("shipment.charge");
         System.out.println("In CheckoutServlet, shipmentChargePerKg: " + shipmentChargePerKg);
-        String shipmentCharge = (Integer.parseInt(shipmentChargePerKg) * Math.ceil(Double.parseDouble(weight))) + "";
+        String shipmentCharge = (Double.parseDouble(shipmentChargePerKg) * Math.ceil(Double.parseDouble(weight))) + "";
         request.setAttribute("shipmentCharge", shipmentCharge);
         
         String orderTotal = (Double.parseDouble(shipmentCharge) + Double.parseDouble(amount)) + "";

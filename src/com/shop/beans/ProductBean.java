@@ -3,6 +3,8 @@ package com.shop.beans;
 import java.io.InputStream;
 import java.io.Serializable;
 
+import com.shop.utility.DBConstantsUtil;
+
 @SuppressWarnings("serial")
 public class ProductBean implements Serializable {
 

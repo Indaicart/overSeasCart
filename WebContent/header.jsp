@@ -269,8 +269,9 @@ body {
                 </a>
                    <ul class="dropdown-menu">
                       <li><a href="addProduct.jsp">Add Product</a></li>
-                      <li><a href="removeProduct.jsp">Remove Product</a></li>
                       <li><a href="updateProductById.jsp">Update Product</a></li>
+                      <li><a href="updateUSDValue.jsp">Update USD Value</a></li>
+                      <li><a href="updateShipmentCharge.jsp">Update Shipment Charge</a></li>
                    </ul></li>
                 <li><a href="./LogoutSrv">Logout</a></li>
 
