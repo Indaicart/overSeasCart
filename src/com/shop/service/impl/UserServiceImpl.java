@@ -15,10 +15,10 @@ import com.shop.utility.PasswordUtil;
 public class UserServiceImpl implements UserService {
 
 	@Override
-	public String registerUser(String userName, Long mobileNo, String emailId, String address, int pinCode,
+	public String registerUser(String userName, Long mobileNo, String emailId,
 			String password) {
 
-		UserBean user = new UserBean(userName, mobileNo, emailId, address, pinCode, password);
+		UserBean user = new UserBean(userName, mobileNo, emailId, password);
 
 		String status = registerUser(user);
 
@@ -44,14 +44,12 @@ public class UserServiceImpl implements UserService {
 
 		try {
 
-			ps = conn.prepareStatement("insert into " + IUserConstants.TABLE_USER + " values(?,?,?,?,?,?)");
+			ps = conn.prepareStatement("insert into " + IUserConstants.TABLE_USER + " values(?,?,?,?)");
 
 			ps.setString(1, user.getEmail());
 			ps.setString(2, user.getName());
 			ps.setLong(3, user.getMobile());
-			ps.setString(4, user.getAddress());
-			ps.setInt(5, user.getPinCode());
-			ps.setString(6, PasswordUtil.hashPassword(user.getPassword()));
+			ps.setString(4, PasswordUtil.hashPassword(user.getPassword()));
 
 			int k = ps.executeUpdate();
 
@@ -165,8 +163,6 @@ public class UserServiceImpl implements UserService {
 					user.setName(rs.getString("name"));
 					user.setMobile(rs.getLong("mobile"));
 					user.setEmail(rs.getString("email"));
-					user.setAddress(rs.getString("address"));
-					user.setPinCode(rs.getInt("pincode"));
 					user.setPassword(rs.getString("password"));
 
 					return user;
@@ -241,18 +237,16 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public boolean updateUserDetails(String name, int pincode, String email, Long mobile, String address) {
+	public boolean updateUserDetails(String name, String email, Long mobile) {
 	    boolean success = false;
-	    System.out.println("email : " + email + "mobile :" + mobile + "address :" + address);
+	    System.out.println("email : " + email + "mobile :" + mobile );
 
 	    try (Connection con = DBUtil.provideConnection()) {
-	        String sql = "UPDATE user SET mobile = ?, address = ?, name = ?, pincode = ? WHERE email = ?";
+	        String sql = "UPDATE user SET mobile = ?, name = ? WHERE email = ?";
 	        PreparedStatement ps = con.prepareStatement(sql);
 	        ps.setLong(1, mobile);
-	        ps.setString(2, address);
-	        ps.setString(3, name);
-	        ps.setInt(4, pincode);
-	        ps.setString(5, email);
+	        ps.setString(2, name);
+	        ps.setString(3, email);
 
 	        int rows = ps.executeUpdate();
 	        success = rows > 0;
@@ -284,8 +278,6 @@ public class UserServiceImpl implements UserService {
 				user.setName(rs.getString("name"));
 				user.setMobile(rs.getLong("mobile"));
 				user.setEmail(rs.getString("email"));
-				user.setAddress(rs.getString("address"));
-				user.setPinCode(rs.getInt("pincode"));
 
 				return user;
 			}

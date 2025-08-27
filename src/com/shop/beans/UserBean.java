@@ -8,21 +8,17 @@ public class UserBean implements Serializable {
 	public UserBean() {
 	}
 
-	public UserBean(String userName, Long mobileNo, String emailId, String address, int pinCode, String password) {
+	public UserBean(String userName, Long mobileNo, String emailId, String password) {
 		super();
 		this.name = userName;
 		this.mobile = mobileNo;
 		this.email = emailId;
-		this.address = address;
-		this.pinCode = pinCode;
 		this.password = password;
 	}
 
 	private String name;
 	private Long mobile;
 	private String email;
-	private String address;
-	private int pinCode;
 	private String password;
 
 	public String getName() {
@@ -49,21 +45,7 @@ public class UserBean implements Serializable {
 		this.email = email;
 	}
 
-	public String getAddress() {
-		return address;
-	}
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public int getPinCode() {
-		return pinCode;
-	}
-
-	public void setPinCode(int pinCode) {
-		this.pinCode = pinCode;
-	}
 
 	public String getPassword() {
 		return password;
@@ -75,8 +57,7 @@ public class UserBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "UserBean [name=" + name + ", mobile=" + mobile + ", email=" + email + ", address=" + address
-				+ ", pinCode=" + pinCode + ", password=" + password + "]";
+		return "UserBean [name=" + name + ", mobile=" + mobile + ", email=" + email + ", password=" + password + "]";
 	}
 	
 	

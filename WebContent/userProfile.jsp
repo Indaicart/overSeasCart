@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page
-    import="com.shop.service.impl.*, com.shop.service.*,com.shop.beans.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*"%>
+    import="com.shop.service.impl.*, com.shop.service.*,com.shop.beans.*,com.shop.utility.*,java.util.*,javax.servlet.ServletOutputStream,java.io.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,8 +124,9 @@ body {
 
     UserService dao = new UserServiceImpl();
     UserBean user = dao.getUserDetails(userName, password);
-    if (user == null)
-       user = new UserBean("Test User", 98765498765L, "test@gmail.com", "ABC colony, Patna, bihar", 87659, "lksdjf");
+
+    AddressServiceImpl addressDao = new AddressServiceImpl();
+    AddressBean address = addressDao.getAddressByEmail(user.getEmail());
     %>
 
     <jsp:include page="header.jsp" />
@@ -145,7 +146,7 @@ body {
              <div class="profile-photo-card">
                 <img src="images/logo.png" alt="Profile Photo" class="img-rounded">
                 <div class="username-greet">
-                  Hello <%=user.getName()%> here!!
+                  Hello <%=user.getName()%>!!
                 </div>
              </div>
           </div>
@@ -163,17 +164,106 @@ body {
                     <div class="detail-label">Phone</div>
                     <div class="detail-value"><%=user.getMobile()%></div>
                 </div>
-                <div class="detail-row">
-                    <div class="detail-label">Address</div>
-                    <div class="detail-value"><%=user.getAddress()%></div>
-                </div>
-                <div class="detail-row">
-                    <div class="detail-label">PinCode</div>
-                    <div class="detail-value"><%=user.getPinCode()%></div>
-                </div>
+                <!-- Address Details -->
+                    <div class="detail-row">
+                        <div class="detail-label">House No.</div>
+                        <div class="detail-value"><%=address.getFlat()%></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Street</div>
+                        <div class="detail-value"><%=address.getStreet()%></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">LandMark</div>
+                        <div class="detail-value"><%=address.getLandmark()%></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">City</div>
+                        <div class="detail-value"><%=address.getCity()%></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">State</div>
+                        <div class="detail-value"><%=StateUtil.getStateName(address.getState())%></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Pincode</div>
+                        <div class="detail-value"><%=address.getPincode()%></div>
+                    </div>
+                    <!-- Update button -->
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#editModal">Update Details</button>
              </div>
           </div>
        </div>
+    </div>
+    <!-- Modal for editing user details -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+      <div class="modal-dialog" role="document">
+        <form action="UpdateUserDetailsServlet" method="post">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="editModalLabel">Edit Your Details</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="email" value="<%= user.getEmail() %>"/>
+                <input type="hidden" name="isProfile" value= "true" />
+
+
+                <!-- Name field -->
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" class="form-control" value="<%= user.getName() %>" required>
+                </div>
+
+                <!-- Mobile field -->
+                <div class="form-group">
+                    <label for="mobile">Mobile</label>
+                    <input type="number" name="mobile" class="form-control" value="<%= user.getMobile() %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="flat">Flat, House no., Building, Company, Apartment</label>
+                    <input type="text" name="flat" class="form-control" value="<%= address.getFlat() %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="street">Area, Street, Sector, Village</label>
+                    <input type="text" name="street" class="form-control" value="<%= address.getStreet() %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="landmark">Landmark</label>
+                    <input type="text" name="landmark" class="form-control" value="<%= address.getLandmark() %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">Town/City</label>
+                    <input type="text" name="city" class="form-control" value="<%= address.getCity() %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <select name="state" class="form-control" required>
+                        <%
+                            String currentState = address.getState();
+                            java.util.Map<String, String> states = StateUtil.getStates();
+                            for (java.util.Map.Entry<String, String> entry : states.entrySet()) {
+                                String code = entry.getKey();
+                                String fullName = entry.getValue();
+                                String selected = code.equals(currentState) ? "selected" : "";
+                        %>
+                            <option value="<%= code %>" <%= selected %>><%= fullName %></option>
+                        <%
+                            }
+                        %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pincode">Zip code</label>
+                    <input type="number" name="pincode" class="form-control" value="<%= address.getPincode() %>" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-success">Save Changes</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
 
     <%@ include file="footer.html"%>

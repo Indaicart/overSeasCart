@@ -9,7 +9,7 @@ public interface UserService {
 	 * private String address; private int pinCode; private String password;
 	 */
 
-	public String registerUser(String userName, Long mobileNo, String emailId, String address, int pinCode,
+	public String registerUser(String userName, Long mobileNo, String emailId,
 			String password);
 
 	public String registerUser(UserBean user);
@@ -24,7 +24,7 @@ public interface UserService {
 
 	public String getUserAddr(String userId);
 	
-	public boolean updateUserDetails(String name,int pinCode, String email, Long mobile, String address);
+	public boolean updateUserDetails(String name, String email, Long mobile);
 
 	UserBean getUserDetails(String email);
 

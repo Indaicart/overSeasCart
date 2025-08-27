@@ -19,7 +19,7 @@ import com.shop.service.impl.UserServiceImpl;
 @WebServlet("/LoginSrv")
 public class LoginSrv extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	public LoginSrv() {
 		super();
 	}

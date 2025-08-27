@@ -197,3 +197,30 @@ CREATE TABLE `shopping-cart`.`constants` (
 ALTER TABLE `shopping-cart`.`user` 
 CHANGE COLUMN `password` `password` VARCHAR(60) NOT NULL;
 -- ----------------------------------------------------------------
+
+-- -----------------------------------------------------------------
+-- Alter user table removed address and pincode
+-- -----------------------------------------------------------------
+ALTER TABLE `shopping-cart`.`user`
+DROP COLUMN `address`,
+DROP COLUMN `pincode`;
+
+-- -------------------------------------------------------------------
+-- created new table for Address
+-- -------------------------------------------------------------------
+DROP TABLE IF EXISTS `shopping-cart`.`address` ;
+
+CREATE TABLE IF NOT EXISTS `shopping-cart`.`address` (
+    `address_id` INT AUTO_INCREMENT PRIMARY KEY,
+    `user_email` VARCHAR(60),
+    `flat` VARCHAR(100),        -- Flat/House No/Building
+    `street` VARCHAR(150),      -- Area/Street/Sector
+    `landmark` VARCHAR(150),    -- Landmark
+    `city` VARCHAR(100),
+    `state` VARCHAR(50),
+    `pincode` INT,
+    FOREIGN KEY (`user_email`) REFERENCES `shopping-cart`.`user`(`email`) ON DELETE CASCADE
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;

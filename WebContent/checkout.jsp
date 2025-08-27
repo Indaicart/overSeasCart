@@ -1,4 +1,4 @@
-<%@ page import="com.shop.beans.UserBean" %>
+<%@ page import="com.shop.service.impl.*, com.shop.service.*,com.shop.beans.*,com.shop.utility.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="true" %>
 <html>
@@ -20,6 +20,8 @@
 		response.sendRedirect("login.jsp?message=Session Expired, Login Again!!"); // or show an error message
 	    return;
 	}
+	AddressServiceImpl addressDao = new AddressServiceImpl();
+    AddressBean address = addressDao.getAddressByEmail(user.getEmail());
     String amount = (String) request.getAttribute("amount");
     String weight = (String) request.getAttribute("weight");
     String shipmentCharge = (String) request.getAttribute("shipmentCharge");
@@ -38,8 +40,12 @@
                     <p><strong>Name:</strong> <%= user.getName() %></p>
                     <p><strong>Email:</strong> <%= user.getEmail() %></p>
                     <p><strong>Mobile:</strong> <%= user.getMobile() %></p>
-                    <p><strong>Address:</strong> <%= user.getAddress() %></p>
-                    <p><strong>Pincode:</strong> <%= user.getPinCode() %></p>
+                    <p><strong>Flat/House no: </Strong> <%= address.getFlat() %></p>
+                    <p><strong>Area: </Strong> <%= address.getStreet() %></p>
+                    <p><strong>Landmark: </Strong> <%= address.getLandmark() %></p>
+                    <p><strong>City: </Strong> <%= address.getCity() %></p>
+                    <p><strong>State: </Strong> <%= StateUtil.getStateName(address.getState()) %></p>
+                    <p><strong>Zip: </Strong> <%= address.getPincode() %></p>
 
                     <!-- Update button -->
                     <button class="btn btn-primary" data-toggle="modal" data-target="#editModal">Update Details</button>
@@ -80,15 +86,12 @@
         <div class="modal-body">
             <input type="hidden" name="email" value="<%= user.getEmail() %>"/>
             <input type="hidden" name="amount" value="<%= amount %>" />
+            <input type="hidden" name="isProfile" value= "false" />
 
             <!-- Name field -->
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" name="name" class="form-control" value="<%= user.getName() %>" required>
-            </div>
-            <div class="form-group">
-                <label for="pincode">Pin code</label>
-                <input type="number" name="pincode" class="form-control" value="<%= user.getPinCode() %>" required>
             </div>
 
             <!-- Mobile field -->
@@ -96,11 +99,42 @@
                 <label for="mobile">Mobile</label>
                 <input type="number" name="mobile" class="form-control" value="<%= user.getMobile() %>" required>
             </div>
-
-            <!-- Address field -->
             <div class="form-group">
-                <label for="address">Address</label>
-                <textarea name="address" class="form-control" required><%= user.getAddress() %></textarea>
+                <label for="flat">Flat, House no., Building, Company, Apartment</label>
+                <input type="text" name="flat" class="form-control" value="<%= address.getFlat() %>" required>
+            </div>
+            <div class="form-group">
+                <label for="street">Area, Street, Sector, Village</label>
+                <input type="text" name="street" class="form-control" value="<%= address.getStreet() %>" required>
+            </div>
+            <div class="form-group">
+                <label for="landmark">Landmark</label>
+                <input type="text" name="landmark" class="form-control" value="<%= address.getLandmark() %>" required>
+            </div>
+            <div class="form-group">
+                <label for="city">Town/City</label>
+                <input type="text" name="city" class="form-control" value="<%= address.getCity() %>" required>
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                <select name="state" class="form-control" required>
+                    <%
+                        String currentState = address.getState();
+                        java.util.Map<String, String> states = StateUtil.getStates();
+                        for (java.util.Map.Entry<String, String> entry : states.entrySet()) {
+                            String code = entry.getKey();
+                            String fullName = entry.getValue();
+                            String selected = code.equals(currentState) ? "selected" : "";
+                    %>
+                        <option value="<%= code %>" <%= selected %>><%= fullName %></option>
+                    <%
+                        }
+                    %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pincode">Zip code</label>
+                <input type="number" name="pincode" class="form-control" value="<%= address.getPincode() %>" required>
             </div>
         </div>
         <div class="modal-footer">

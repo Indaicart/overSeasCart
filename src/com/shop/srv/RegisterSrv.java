@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.shop.beans.AddressBean;
 import com.shop.beans.UserBean;
+import com.shop.service.impl.AddressServiceImpl;
 import com.shop.service.impl.UserServiceImpl;
 
 /**
@@ -26,19 +28,36 @@ public class RegisterSrv extends HttpServlet {
 		String name = request.getParameter("name");
 		Long mobile = Long.parseLong(request.getParameter("mobile"));
 		String email = request.getParameter("email");
-		String address = request.getParameter("address");
-		int pincode = Integer.parseInt(request.getParameter("pincode"));
 		String password = request.getParameter("password");
 		String confirmPassword = request.getParameter("confirmPassword");
+
+		String flat = request.getParameter("flat");
+		String street = request.getParameter("street");
+		String landmark = request.getParameter("landmark");
+		String city = request.getParameter("city");
+		String state = request.getParameter("state");
+		int pincode = Integer.parseInt(request.getParameter("pincode"));
+
 		String status = "";
 
 		if (password != null && password.equals(confirmPassword)) {
-			
-			UserBean user = new UserBean(name, mobile, email, address, pincode, password);
-
+			UserBean user = new UserBean(name, mobile, email, password);
 			UserServiceImpl dao = new UserServiceImpl();
-
 			status = dao.registerUser(user);
+
+			if (status.equals("User Registered Successfully!")) {
+				AddressBean address = new AddressBean();
+				address.setUserEmail(email);
+				address.setFlat(flat);
+				address.setStreet(street);
+				address.setLandmark(landmark);
+				address.setCity(city);
+				address.setState(state);
+				address.setPincode(pincode);
+
+				AddressServiceImpl addressDao = new AddressServiceImpl();
+				addressDao.saveAddress(address);
+			}
 		} else {
 			status = "Your password and confirmation password do not match!";
 		}
@@ -50,7 +69,6 @@ public class RegisterSrv extends HttpServlet {
 		else {
 			request.setAttribute("name", name);
 			request.setAttribute("mobile", mobile);
-			request.setAttribute("address", address);
 			request.setAttribute("pincode", pincode);
 			request.setAttribute("emailPrefilled", email);
 			RequestDispatcher rd = request.getRequestDispatcher("register.jsp?message=" + status);
