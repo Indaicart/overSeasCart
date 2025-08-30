@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `shopping-cart`.`orders` (
   `shipped` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`orderid`, `prodid`),
   INDEX `productid_idx` (`prodid` ASC) VISIBLE,
+  UNIQUE KEY `uniq_orderid` (`orderid`),
   CONSTRAINT `productid`
     FOREIGN KEY (`prodid`)
     REFERENCES `shopping-cart`.`product` (`pid`)
@@ -126,9 +127,9 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
------------------------------------------------------------
+-- ---------------------------------------------------------
 -- Table `shopping-cart`.`product_images`
------------------------------------------------------------
+-- ---------------------------------------------------------
 DROP TABLE IF EXISTS `shopping-cart`.`product_images` ;
 
 CREATE TABLE IF NOT EXISTS `shopping-cart`.`product_images` (
@@ -141,10 +142,9 @@ CREATE TABLE IF NOT EXISTS `shopping-cart`.`product_images` (
   CONSTRAINT `fk_product_images_product`
     FOREIGN KEY (`pid`) REFERENCES `product`(`pid`)
     ON DELETE CASCADE
-)
- ENGINE=InnoDB;
- DEFAULT CHARACTER SET = utf8mb4
- COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 -- -----------------------------------------------------
 -- Table `shopping-cart`.`usercart`
@@ -224,3 +224,9 @@ CREATE TABLE IF NOT EXISTS `shopping-cart`.`address` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
+-- -------------------------------------------------------------
+-- Insert constants
+-- -------------------------------------------------------------
+INSERT INTO constants (`key`, `value`) VALUES ('USD_INR', '88');
+INSERT INTO constants (`key`, `value`) VALUES ('ship_charge', '25');

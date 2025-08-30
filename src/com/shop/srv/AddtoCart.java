@@ -68,7 +68,7 @@ public class AddtoCart extends HttpServlet {
 
 			rd.include(request, response);
 
-			pw.println("<script>document.getElementById('message').innerHTML='" + status + "'</script>");
+			pw.println("<script>document.getElementById('message').innerHTML=\\\"<b style='color:red;'>\" + status + \"</b>\\\"</script>");
 		} else if (availableQty < pQty) {
 
 			String status = null;
@@ -97,7 +97,7 @@ public class AddtoCart extends HttpServlet {
 
 			rd.include(request, response);
 
-			pw.println("<script>document.getElementById('message').innerHTML='" + status + "'</script>");
+			pw.println("<script>document.getElementById('message').innerHTML=\"<b style='color:red;'>\" + status + \"</b>\"</script>");
 
 		} else {
 			String status = cart.updateProductToCart(userId, prodId, pQty);
@@ -106,7 +106,7 @@ public class AddtoCart extends HttpServlet {
 
 			rd.include(request, response);
 
-			pw.println("<script>document.getElementById('message').innerHTML='" + status + "'</script>");
+			pw.println("<script>document.getElementById('message').innerHTML=\"<b style='color:red;'>\" + status + \"</b>\"</script>");
 		}
 
 	}
