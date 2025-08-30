@@ -57,7 +57,9 @@
 	%>
 
 
-
+<%
+    request.setAttribute("hideSearchBar", true);
+%>
 	<jsp:include page="header.jsp" />
 
 	<div class="text-center"

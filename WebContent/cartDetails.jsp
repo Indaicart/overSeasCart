@@ -101,7 +101,7 @@
 					ProductBean product = new ProductServiceImpl().getProductDetails(prodId);
 
 					double currAmount = product.getProdPrice() * prodQuantity;
-
+					currAmount = Math.round(currAmount * 100.0) / 100.0;
 					double currWeight = (product.getProdWeight() * prodQuantity )/ 1000.0;
 					totalWeight += currWeight;
 

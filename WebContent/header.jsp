@@ -117,171 +117,183 @@ body {
 
 </head>
 <body style="background-color: #E6F9E6;">
-    <!--Company Header Starting  -->
-    <div class="header-bar text-center">
-       <h1>Bharat Bazaar</h1>
-       <h4>We specialize in Indian local products</h4>
-       <form class="form-inline" action="index.jsp" method="get"
-             style="display:inline-block; margin-bottom:0;">
-          <div class="input-group">
-             <input type="text" class="form-control" name="search"
-                    placeholder="Search Items" required>
-             <div class="input-group-btn">
-                <input type="submit" class="btn btn-danger" value="Search" />
-             </div>
-          </div>
-       </form>
-       <p id="message"></p>
-    </div>
-    <!-- Company Header Ending -->
 
-    <%
+<%
+    // Check if the search bar should be hidden (default: show search bar)
+    Boolean hideSearchBar = (Boolean) request.getAttribute("hideSearchBar");
+    if (hideSearchBar == null) {
+        hideSearchBar = false;
+    }
+%>
+
+<!--Company Header Starting  -->
+<div class="header-bar text-center">
+   <h1>Bharat Bazaar</h1>
+   <h4>We specialize in Indian local products</h4>
+
+   <% if (hideSearchBar) { %>
+   <form class="form-inline" action="index.jsp" method="get" style="display:inline-block; margin-bottom:0;">
+      <div class="input-group">
+         <input type="text" class="form-control" name="search" placeholder="Search Items" required>
+         <div class="input-group-btn">
+            <input type="submit" class="btn btn-danger" value="Search" />
+         </div>
+      </div>
+   </form>
+   <% } %>
+
+   <p id="message"></p>
+</div>
+<!-- Company Header Ending -->
+
+<%
     /* Checking the user credentials */
     String userType = (String) session.getAttribute("usertype");
     if (userType == null) { //LOGGED OUT
-    %>
+%>
 
-    <!-- Starting Navigation Bar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-       <div class="container-fluid">
-          <div class="navbar-header">
-             <button type="button" class="navbar-toggle" data-toggle="collapse"
-                data-target="#myNavbar">
-                <span class="icon-bar"></span> <span class="icon-bar"></span> <span
-                   class="icon-bar"></span>
-             </button>
-             <a class="navbar-brand" href="index.jsp"><span
-                class="glyphicon glyphicon-home">&nbsp;</span>Bharat Bazaar</a>
-          </div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-             <ul class="nav navbar-nav navbar-right">
-                <li><a href="login.jsp">Login</a></li>
-                <li><a href="sendOtp.jsp">Register</a></li>
-                <li><a href="index.jsp">Products</a></li>
-                <li class="dropdown"><a class="dropdown-toggle"
-                   data-toggle="dropdown" href="#">Category <span class="caret"></span>
-                </a>
-                   <ul class="dropdown-menu">
-                      <li><a href="index.jsp?type=mobile">Mobiles</a></li>
-                      <li><a href="index.jsp?type=tv">TVs</a></li>
-                      <li><a href="index.jsp?type=laptop">Laptops</a></li>
-                      <li><a href="index.jsp?type=camera">Camera</a></li>
-                      <li><a href="index.jsp?type=speaker">Speakers</a></li>
-                      <li><a href="index.jsp?type=tablet">Tablets</a></li>
-                   </ul></li>
-             </ul>
-          </div>
-       </div>
-    </nav>
-    <%
+<!-- Starting Navigation Bar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+   <div class="container-fluid">
+      <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse"
+            data-target="#myNavbar">
+            <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+               class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="index.jsp"><span
+            class="glyphicon glyphicon-home">&nbsp;</span>Bharat Bazaar</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+         <ul class="nav navbar-nav navbar-right">
+            <li><a href="login.jsp">Login</a></li>
+            <li><a href="sendOtp.jsp">Register</a></li>
+            <li><a href="index.jsp">Products</a></li>
+            <li class="dropdown"><a class="dropdown-toggle"
+               data-toggle="dropdown" href="#">Category <span class="caret"></span>
+            </a>
+               <ul class="dropdown-menu">
+                  <li><a href="index.jsp?type=mobile">Mobiles</a></li>
+                  <li><a href="index.jsp?type=tv">TVs</a></li>
+                  <li><a href="index.jsp?type=laptop">Laptops</a></li>
+                  <li><a href="index.jsp?type=camera">Camera</a></li>
+                  <li><a href="index.jsp?type=speaker">Speakers</a></li>
+                  <li><a href="index.jsp?type=tablet">Tablets</a></li>
+               </ul></li>
+         </ul>
+      </div>
+   </div>
+</nav>
+<%
     } else if ("customer".equalsIgnoreCase(userType)) { //CUSTOMER HEADER
 
     int notf = new CartServiceImpl().getCartCount((String) session.getAttribute("username"));
-    %>
-    <nav class="navbar navbar-default navbar-fixed-top">
+%>
+<nav class="navbar navbar-default navbar-fixed-top">
 
-       <div class="container-fluid">
-          <div class="navbar-header">
-             <button type="button" class="navbar-toggle" data-toggle="collapse"
-                data-target="#myNavbar">
-                <span class="icon-bar"></span> <span class="icon-bar"></span> <span
-                   class="icon-bar"></span>
-             </button>
-             <a class="navbar-brand" href="userHome.jsp"><span
-                class="glyphicon glyphicon-home">&nbsp;</span>Bharat Bazaar</a>
-          </div>
+   <div class="container-fluid">
+      <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse"
+            data-target="#myNavbar">
+            <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+               class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="userHome.jsp"><span
+            class="glyphicon glyphicon-home">&nbsp;</span>Bharat Bazaar</a>
+      </div>
 
-          <div class="collapse navbar-collapse" id="myNavbar">
-             <ul class="nav navbar-nav navbar-right">
-                <li><a href="userHome.jsp">Products</a></li>
-                <li class="dropdown"><a class="dropdown-toggle"
-                   data-toggle="dropdown" href="#">Category <span class="caret"></span>
-                </a>
-                   <ul class="dropdown-menu">
-                      <li><a href="userHome.jsp?type=mobile">Mobiles</a></li>
-                      <li><a href="userHome.jsp?type=tv">TVs</a></li>
-                      <li><a href="userHome.jsp?type=laptop">Laptops</a></li>
-                      <li><a href="userHome.jsp?type=camera">Camera</a></li>
-                      <li><a href="userHome.jsp?type=speaker">Speakers</a></li>
-                      <li><a href="userHome.jsp?type=tablet">Tablets</a></li>
-                   </ul></li>
-                <%
-                if (notf == 0) {
-                %>
-                <li><a href="cartDetails.jsp"> <span
-                      class="glyphicon glyphicon-shopping-cart"></span>Cart
-                </a></li>
+      <div class="collapse navbar-collapse" id="myNavbar">
+         <ul class="nav navbar-nav navbar-right">
+            <li><a href="userHome.jsp">Products</a></li>
+            <li class="dropdown"><a class="dropdown-toggle"
+               data-toggle="dropdown" href="#">Category <span class="caret"></span>
+            </a>
+               <ul class="dropdown-menu">
+                  <li><a href="userHome.jsp?type=mobile">Mobiles</a></li>
+                  <li><a href="userHome.jsp?type=tv">TVs</a></li>
+                  <li><a href="userHome.jsp?type=laptop">Laptops</a></li>
+                  <li><a href="userHome.jsp?type=camera">Camera</a></li>
+                  <li><a href="userHome.jsp?type=speaker">Speakers</a></li>
+                  <li><a href="userHome.jsp?type=tablet">Tablets</a></li>
+               </ul></li>
+            <%
+            if (notf == 0) {
+            %>
+            <li><a href="cartDetails.jsp"> <span
+                  class="glyphicon glyphicon-shopping-cart"></span>Cart
+            </a></li>
 
-                <%
-                } else {
-                %>
-                <li><a href="cartDetails.jsp"
-                   style="margin: 0px; padding: 0px;" id="mycart"><i
-                      data-count="<%=notf%>"
-                      class="fa fa-shopping-cart fa-3x icon-white badge"
-                      style="background-color: #333; margin: 0px; padding: 0px; padding-bottom: 0px; padding-top: 5px;">
-                   </i></a></li>
-                <%
-                }
-                %>
-                <li><a href="orderDetails.jsp">Orders</a></li>
-                <li><a href="userProfile.jsp">Profile</a></li>
-                <li><a href="./LogoutSrv">Logout</a></li>
-             </ul>
-          </div>
-       </div>
-    </nav>
-    <%
+            <%
+            } else {
+            %>
+            <li><a href="cartDetails.jsp"
+               style="margin: 0px; padding: 0px;" id="mycart"><i
+                  data-count="<%=notf%>"
+                  class="fa fa-shopping-cart fa-3x icon-white badge"
+                  style="background-color: #333; margin: 0px; padding: 0px; padding-bottom: 0px; padding-top: 5px;">
+               </i></a></li>
+            <%
+            }
+            %>
+            <li><a href="orderDetails.jsp">Orders</a></li>
+            <li><a href="userProfile.jsp">Profile</a></li>
+            <li><a href="./LogoutSrv">Logout</a></li>
+         </ul>
+      </div>
+   </div>
+</nav>
+<%
     } else { //ADMIN HEADER
-    %>
-    <nav class="navbar navbar-default navbar-fixed-top">
-       <div class="container-fluid">
-          <div class="navbar-header">
-             <button type="button" class="navbar-toggle" data-toggle="collapse"
-                data-target="#myNavbar">
-                <span class="icon-bar"></span> <span class="icon-bar"></span> <span
-                   class="icon-bar"></span>
-             </button>
-             <a class="navbar-brand" href="adminViewProduct.jsp"><span
-                class="glyphicon glyphicon-home">&nbsp;</span>Bharat Bazaar</a>
-          </div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-             <ul class="nav navbar-nav navbar-right">
-                <li><a href="adminViewProduct.jsp">Products</a></li>
-                <li class="dropdown"><a class="dropdown-toggle"
-                   data-toggle="dropdown" href="#">Category <span class="caret"></span>
-                </a>
-                   <ul class="dropdown-menu">
-                      <li><a href="adminViewProduct.jsp?type=mobile">Mobiles</a></li>
-                      <li><a href="adminViewProduct.jsp?type=tv">TVs</a></li>
-                      <li><a href="adminViewProduct.jsp?type=laptop">Laptops</a></li>
-                      <li><a href="adminViewProduct.jsp?type=camera">Camera</a></li>
-                      <li><a href="adminViewProduct.jsp?type=speaker">Speakers</a></li>
-                      <li><a href="adminViewProduct.jsp?type=tablet">Tablets</a></li>
-                   </ul></li>
-                <li><a href="adminStock.jsp">Stock</a></li>
-                <li><a href="shippedItems.jsp">Shipped</a></li>
-                <li><a href="unshippedItems.jsp">Orders</a></li>
-                <!-- <li><a href=""> <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Cart</a></li> -->
-                <li class="dropdown"><a class="dropdown-toggle"
-                   data-toggle="dropdown" href="#">Update Items <span
-                      class="caret"></span>
-                </a>
-                   <ul class="dropdown-menu">
-                      <li><a href="addProduct.jsp">Add Product</a></li>
-                      <li><a href="updateProductById.jsp">Update Product</a></li>
-                      <li><a href="updateUSDValue.jsp">Update USD Value</a></li>
-                      <li><a href="updateShipmentCharge.jsp">Update Shipment Charge</a></li>
-                   </ul></li>
-                <li><a href="./LogoutSrv">Logout</a></li>
+%>
+<nav class="navbar navbar-default navbar-fixed-top">
+   <div class="container-fluid">
+      <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse"
+            data-target="#myNavbar">
+            <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+               class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="adminViewProduct.jsp"><span
+            class="glyphicon glyphicon-home">&nbsp;</span>Bharat Bazaar</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+         <ul class="nav navbar-nav navbar-right">
+            <li><a href="adminViewProduct.jsp">Products</a></li>
+            <li class="dropdown"><a class="dropdown-toggle"
+               data-toggle="dropdown" href="#">Category <span class="caret"></span>
+            </a>
+               <ul class="dropdown-menu">
+                  <li><a href="adminViewProduct.jsp?type=mobile">Mobiles</a></li>
+                  <li><a href="adminViewProduct.jsp?type=tv">TVs</a></li>
+                  <li><a href="adminViewProduct.jsp?type=laptop">Laptops</a></li>
+                  <li><a href="adminViewProduct.jsp?type=camera">Camera</a></li>
+                  <li><a href="adminViewProduct.jsp?type=speaker">Speakers</a></li>
+                  <li><a href="adminViewProduct.jsp?type=tablet">Tablets</a></li>
+               </ul></li>
+            <li><a href="adminStock.jsp">Stock</a></li>
+            <li><a href="shippedItems.jsp">Shipped</a></li>
+            <li><a href="unshippedItems.jsp">Orders</a></li>
+            <!-- <li><a href=""> <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Cart</a></li> -->
+            <li class="dropdown"><a class="dropdown-toggle"
+               data-toggle="dropdown" href="#">Update Items <span
+                  class="caret"></span>
+            </a>
+               <ul class="dropdown-menu">
+                  <li><a href="addProduct.jsp">Add Product</a></li>
+                  <li><a href="updateProductById.jsp">Update Product</a></li>
+                  <li><a href="updateUSDValue.jsp">Update USD Value</a></li>
+                  <li><a href="updateShipmentCharge.jsp">Update Shipment Charge</a></li>
+               </ul></li>
+            <li><a href="./LogoutSrv">Logout</a></li>
 
-             </ul>
-          </div>
-       </div>
-    </nav>
-    <%
+         </ul>
+      </div>
+   </div>
+</nav>
+<%
     }
-    %>
-    <!-- End of Navigation Bar -->
+%>
+<!-- End of Navigation Bar -->
+
 </body>
 </html>

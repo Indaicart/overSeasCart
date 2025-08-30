@@ -112,6 +112,9 @@
 </style>
 </head>
 <body>
+<%
+    request.setAttribute("hideSearchBar", true);
+%>
 <jsp:include page="header.jsp" />
 
 <%

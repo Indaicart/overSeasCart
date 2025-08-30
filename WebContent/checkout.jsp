@@ -2,7 +2,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="true" %>
 <%
-    // Initialize variables at the top so they can be used in <head> scripts
     UserBean user = (UserBean) request.getAttribute("user");
     if (user == null) {
        System.out.println("In checkout.jsp, moving to login page");
@@ -25,61 +24,36 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <style>
-        body {
-            background-color: #E6F9E6;
-            font-family: 'Poppins', Arial, sans-serif;
+        body { background-color: #E6F9E6; font-family: 'Poppins', Arial, sans-serif; }
+        h2, .panel-heading { font-weight: 600; color: #24943A !important; letter-spacing: 1px; }
+        .panel { box-shadow: 0 4px 15px rgba(36,148,58, 0.10), 0 1.5px 3px rgba(0,0,0,0.02); border-radius: 14px; border: none; }
+        .user-actions { display: flex; justify-content: center; gap: 18px; margin-top: 28px; margin-bottom: 10px; }
+        .btn-primary { width: 160px; height: 48px; font-size: 18px; border-radius: 25px; font-weight: 500; }
+        .modal-content { border-radius: 10px; font-family: 'Poppins', Arial, sans-serif; }
+        label { font-weight: 500; color: #24943A; }
+        .form-control { border-radius: 8px; font-size: 16px; }
+        @media (max-width: 767px) {
+            .user-actions { flex-direction: column; gap: 12px; align-items: center; }
+            .btn-primary { width: 100%; font-size: 17px; }
         }
-        h2, .panel-heading {
-            font-weight: 600;
-            color: #24943A !important;
-            letter-spacing: 1px;
+        .details-table {
+            border-collapse: collapse;
+            width: 100%;
+            background: transparent;
         }
-        .panel {
-            box-shadow: 0 4px 15px rgba(36,148,58, 0.10), 0 1.5px 3px rgba(0,0,0,0.02);
-            border-radius: 14px;
-            border: none;
-        }
-        .panel-body p {
+        .details-table td {
+            border: none !important;
+            padding: 6px 10px 6px 0;
             font-size: 16px;
             color: #333;
-            margin-bottom: 8px;
+            vertical-align: top;
         }
-        .user-actions {
-            display: flex;
-            justify-content: center;
-            gap: 18px;
-            margin-top: 28px;
-            margin-bottom: 10px;
-        }
-        .btn-primary {
-            width: 160px;
-            height: 48px;
-            font-size: 18px;
-            border-radius: 25px;
-            font-weight: 500;
-        }
-        .modal-content {
-            border-radius: 10px;
-            font-family: 'Poppins', Arial, sans-serif;
-        }
-        label {
-            font-weight: 500;
+        .details-table tr td:first-child {
+            min-width: 120px;
+            width: 35%;
+            font-weight: 600;
             color: #24943A;
-        }
-        .form-control {
-            border-radius: 8px;
-            font-size: 16px;
-        }
-        @media (max-width: 767px) {
-            .user-actions {
-                flex-direction: column;
-                gap: 12px;
-                align-items: center;
-            }
-            .btn-primary {
-                width: 100%;
-                font-size: 17px;
-            }
+            padding-right: 15px;
         }
     </style>
     <script>
@@ -100,18 +74,21 @@
             var shipmentElem = document.getElementById("shipmentCharge");
             var orderElem = document.getElementById("orderTotal");
             var currencyBtn = document.getElementById("currencyBtn");
+            var payNowBtn = document.getElementById("payNowBtn");
 
             if (isUSD) {
                 cartTotalElem.innerText  = formatINR(usdCartTotal);
                 shipmentElem.innerText   = formatINR(usdShipmentCharge);
                 orderElem.innerText      = formatINR(usdOrderTotal);
-                currencyBtn.innerText    = "Pay in Dollar";
+                currencyBtn.innerText    = "Show in Dollar";
+                payNowBtn.innerText      = "Pay in INR";
                 isUSD = false;
             } else {
                 cartTotalElem.innerText  = formatUSD(usdCartTotal);
                 shipmentElem.innerText   = formatUSD(usdShipmentCharge);
                 orderElem.innerText      = formatUSD(usdOrderTotal);
-                currencyBtn.innerText    = "Pay in INR";
+                currencyBtn.innerText    = "Show in INR";
+                payNowBtn.innerText      = "Pay in Dollar";
                 isUSD = true;
             }
         }
@@ -120,6 +97,8 @@
             document.getElementById("cartTotal").innerText = formatUSD(usdCartTotal);
             document.getElementById("shipmentCharge").innerText = formatUSD(usdShipmentCharge);
             document.getElementById("orderTotal").innerText = formatUSD(usdOrderTotal);
+            document.getElementById("currencyBtn").innerText = "Show in INR";
+            document.getElementById("payNowBtn").innerText = "Pay in Dollar";
         }
     </script>
 </head>
@@ -135,16 +114,45 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><strong>Your Details</strong></div>
                 <div class="panel-body">
-                    <p><strong>Name:</strong> <%= user.getName() %></p>
-                    <p><strong>Email:</strong> <%= user.getEmail() %></p>
-                    <p><strong>Mobile:</strong> <%= user.getMobile() %></p>
-                    <p><strong>Flat/House no:</strong> <%= address.getFlat() %></p>
-                    <p><strong>Area:</strong> <%= address.getStreet() %></p>
-                    <p><strong>Landmark:</strong> <%= address.getLandmark() %></p>
-                    <p><strong>City:</strong> <%= address.getCity() %></p>
-                    <p><strong>State:</strong> <%= StateUtil.getStateName(address.getState()) %></p>
-                    <p><strong>Zip:</strong> <%= address.getPincode() %></p>
-                    <div class="user-actions">
+                    <table class="details-table">
+                        <tr>
+                            <td><strong>Name:</strong></td>
+                            <td><%= user.getName() %></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email:</strong></td>
+                            <td><%= user.getEmail() %></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mobile:</strong></td>
+                            <td><%= user.getMobile() %></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flat/House no:</strong></td>
+                            <td><%= address.getFlat() %></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Area:</strong></td>
+                            <td><%= address.getStreet() %></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Landmark:</strong></td>
+                            <td><%= address.getLandmark() %></td>
+                        </tr>
+                        <tr>
+                            <td><strong>City:</strong></td>
+                            <td><%= address.getCity() %></td>
+                        </tr>
+                        <tr>
+                            <td><strong>State:</strong></td>
+                            <td><%= StateUtil.getStateName(address.getState()) %></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Zip:</strong></td>
+                            <td><%= address.getPincode() %></td>
+                        </tr>
+                    </table>
+                    <div class="user-actions" style="margin-top:20px;">
                         <button class="btn btn-primary" data-toggle="modal" data-target="#editModal" type="button">Update Details</button>
                     </div>
                 </div>
@@ -156,15 +164,35 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><strong>Order Summary</strong></div>
                 <div class="panel-body">
-                    <p><strong>Cart Total:</strong> <span id="cartTotal"></span></p>
-                    <p><strong>Weight:</strong> <%= weight != null ? weight : "0" %> kg </p>
-                    <p><strong>Shipment Charges:</strong> <span id="shipmentCharge"></span></p>
-                    <p><strong>Order Total:</strong> <span id="orderTotal"></span></p>
+                    <div style="margin-bottom:20px;">
+                        <table class="details-table">
+                            <tr>
+                                <td><strong>Weight:</strong></td>
+                                <td><%= weight != null ? weight : "0" %> kg</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <table class="details-table">
+                        <tr>
+                            <td><strong>Cart Total:</strong></td>
+                            <td><span id="cartTotal"></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Shipment Charges:</strong></td>
+                            <td><span id="shipmentCharge"></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Order Total:</strong></td>
+                            <td><span id="orderTotal"></span></td>
+                        </tr>
+                    </table>
+
                     <div class="user-actions">
-                        <button class="btn btn-primary" id="currencyBtn" type="button" onclick="toggleCurrency()">Pay in INR</button>
+                        <button class="btn btn-primary" id="currencyBtn" type="button" onclick="toggleCurrency()">Show in INR</button>
                         <form action="CreateOrderServlet" method="post" style="margin:0;">
                             <input type="hidden" name="amount" value="<%= orderTotal != null ? orderTotal : "0" %>"/>
-                            <button class="btn btn-primary" type="submit">Pay Now</button>
+                            <button class="btn btn-primary" id="payNowBtn" type="submit">Pay in Dollar</button>
                         </form>
                     </div>
                 </div>
