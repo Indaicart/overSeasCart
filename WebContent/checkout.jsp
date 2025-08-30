@@ -10,10 +10,18 @@
     }
     AddressServiceImpl addressDao = new AddressServiceImpl();
     AddressBean address = addressDao.getAddressByEmail(user.getEmail());
-    String amount = (String) request.getAttribute("amount");
+    String cartAmount = (String) request.getAttribute("amount");
     String weight = (String) request.getAttribute("weight");
     String shipmentCharge = (String) request.getAttribute("shipmentCharge");
-    String orderTotal = (String) request.getAttribute("orderTotal");
+    String forexCharge = (String) request.getAttribute("forexCharge");
+    String conversionRate = (String) request.getAttribute("conversionRate");
+
+    // Safely parse values for JS usage
+    double cartAmt = cartAmount != null && !cartAmount.isEmpty() ? Double.parseDouble(cartAmount) : 0.0;
+    double ship = shipmentCharge != null && !shipmentCharge.isEmpty() ? Double.parseDouble(shipmentCharge) : 0.0;
+    double forex = forexCharge != null && !forexCharge.isEmpty() ? Double.parseDouble(forexCharge) : 0.0;
+    double convRate = conversionRate != null && !conversionRate.isEmpty() ? Double.parseDouble(conversionRate) : 1.0;
+    double total = cartAmt + ship + forex;
 %>
 <html>
 <head>
@@ -57,11 +65,13 @@
         }
     </style>
     <script>
+        // Pass clean doubles from JSP
+        var usdCartTotal      = <%= cartAmt %>;
+        var usdShipmentCharge = <%= ship %>;
+        var forexCharge       = <%= forex %>;
+        var conversionRate    = <%= convRate %>;
+        var usdOrderTotal     = <%= total %>;
         var isUSD = true;
-        var usdCartTotal = <%= amount != null && !amount.isEmpty() ? amount : "0" %>;
-        var usdShipmentCharge = <%= shipmentCharge != null && !shipmentCharge.isEmpty() ? shipmentCharge : "0" %>;
-        var usdOrderTotal = <%= orderTotal != null && !orderTotal.isEmpty() ? orderTotal : "0" %>;
-        var conversionRate = 85; // 1 USD = 85 INR example
 
         function formatINR(amount) {
             return "₹ " + (amount * conversionRate).toFixed(2);
@@ -69,36 +79,52 @@
         function formatUSD(amount) {
             return "$ " + Number(amount).toFixed(2);
         }
+
         function toggleCurrency() {
-            var cartTotalElem = document.getElementById("cartTotal");
-            var shipmentElem = document.getElementById("shipmentCharge");
-            var orderElem = document.getElementById("orderTotal");
-            var currencyBtn = document.getElementById("currencyBtn");
-            var payNowBtn = document.getElementById("payNowBtn");
+            var cartTotalElem   = document.getElementById("cartTotal");
+            var shipmentElem    = document.getElementById("shipmentCharge");
+            var forexChargeElem = document.getElementById("forexCharge");
+            var orderElem       = document.getElementById("orderTotal");
+            var currencyBtn     = document.getElementById("currencyBtn");
+            var payNowBtn       = document.getElementById("payNowBtn");
+            var hiddenAmount    = document.getElementById("hiddenAmount");
+            var forexRow        = document.getElementById("forexRow");
 
             if (isUSD) {
-                cartTotalElem.innerText  = formatINR(usdCartTotal);
-                shipmentElem.innerText   = formatINR(usdShipmentCharge);
-                orderElem.innerText      = formatINR(usdOrderTotal);
-                currencyBtn.innerText    = "Show in Dollar";
-                payNowBtn.innerText      = "Pay in INR";
+                // Switch to INR
+                cartTotalElem.innerText   = formatINR(usdCartTotal);
+                shipmentElem.innerText    = formatINR(usdShipmentCharge);
+                orderElem.innerText       = formatINR((usdCartTotal + usdShipmentCharge) ); // forex not included
+                hiddenAmount.value        = ((usdCartTotal + usdShipmentCharge) * conversionRate).toFixed(2);
+                
+                forexRow.style.display    = "none"; // hide forex in INR
+                currencyBtn.innerText     = "Show in USD";
+                payNowBtn.innerText       = "Pay in INR";
                 isUSD = false;
             } else {
-                cartTotalElem.innerText  = formatUSD(usdCartTotal);
-                shipmentElem.innerText   = formatUSD(usdShipmentCharge);
-                orderElem.innerText      = formatUSD(usdOrderTotal);
-                currencyBtn.innerText    = "Show in INR";
-                payNowBtn.innerText      = "Pay in Dollar";
+                // Switch to USD
+                cartTotalElem.innerText   = formatUSD(usdCartTotal);
+                shipmentElem.innerText    = formatUSD(usdShipmentCharge);
+                forexChargeElem.innerText = formatUSD(forexCharge);
+                orderElem.innerText       = formatUSD((usdCartTotal + usdShipmentCharge + forexCharge));
+                hiddenAmount.value        = (usdCartTotal + usdShipmentCharge + forexCharge).toFixed(2);
+
+                forexRow.style.display    = "table-row"; // show forex in USD
+                currencyBtn.innerText     = "Show in INR";
+                payNowBtn.innerText       = "Pay in USD";
                 isUSD = true;
             }
         }
 
         window.onload = function() {
-            document.getElementById("cartTotal").innerText = formatUSD(usdCartTotal);
+            document.getElementById("cartTotal").innerText   = formatUSD(usdCartTotal);
             document.getElementById("shipmentCharge").innerText = formatUSD(usdShipmentCharge);
-            document.getElementById("orderTotal").innerText = formatUSD(usdOrderTotal);
+            document.getElementById("forexCharge").innerText = formatUSD(forexCharge);
+            document.getElementById("orderTotal").innerText  = formatUSD(usdOrderTotal);
             document.getElementById("currencyBtn").innerText = "Show in INR";
-            document.getElementById("payNowBtn").innerText = "Pay in Dollar";
+            document.getElementById("payNowBtn").innerText   = "Pay in USD";
+            document.getElementById("hiddenAmount").value    = usdOrderTotal.toFixed(2);
+            document.getElementById("forexRow").style.display = "table-row"; // show forex in USD by default
         }
     </script>
 </head>
@@ -115,42 +141,15 @@
                 <div class="panel-heading"><strong>Your Details</strong></div>
                 <div class="panel-body">
                     <table class="details-table">
-                        <tr>
-                            <td><strong>Name:</strong></td>
-                            <td><%= user.getName() %></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Email:</strong></td>
-                            <td><%= user.getEmail() %></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Mobile:</strong></td>
-                            <td><%= user.getMobile() %></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Flat/House no:</strong></td>
-                            <td><%= address.getFlat() %></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Area:</strong></td>
-                            <td><%= address.getStreet() %></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Landmark:</strong></td>
-                            <td><%= address.getLandmark() %></td>
-                        </tr>
-                        <tr>
-                            <td><strong>City:</strong></td>
-                            <td><%= address.getCity() %></td>
-                        </tr>
-                        <tr>
-                            <td><strong>State:</strong></td>
-                            <td><%= StateUtil.getStateName(address.getState()) %></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Zip:</strong></td>
-                            <td><%= address.getPincode() %></td>
-                        </tr>
+                        <tr><td><strong>Name:</strong></td><td><%= user.getName() %></td></tr>
+                        <tr><td><strong>Email:</strong></td><td><%= user.getEmail() %></td></tr>
+                        <tr><td><strong>Mobile:</strong></td><td><%= user.getMobile() %></td></tr>
+                        <tr><td><strong>Flat/House no:</strong></td><td><%= address.getFlat() %></td></tr>
+                        <tr><td><strong>Area:</strong></td><td><%= address.getStreet() %></td></tr>
+                        <tr><td><strong>Landmark:</strong></td><td><%= address.getLandmark() %></td></tr>
+                        <tr><td><strong>City:</strong></td><td><%= address.getCity() %></td></tr>
+                        <tr><td><strong>State:</strong></td><td><%= StateUtil.getStateName(address.getState()) %></td></tr>
+                        <tr><td><strong>Zip:</strong></td><td><%= address.getPincode() %></td></tr>
                     </table>
                     <div class="user-actions" style="margin-top:20px;">
                         <button class="btn btn-primary" data-toggle="modal" data-target="#editModal" type="button">Update Details</button>
@@ -174,25 +173,17 @@
                     </div>
 
                     <table class="details-table">
-                        <tr>
-                            <td><strong>Cart Total:</strong></td>
-                            <td><span id="cartTotal"></span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Shipment Charges:</strong></td>
-                            <td><span id="shipmentCharge"></span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Order Total:</strong></td>
-                            <td><span id="orderTotal"></span></td>
-                        </tr>
+                        <tr><td><strong>Cart Total:</strong></td><td><span id="cartTotal"></span></td></tr>
+                        <tr><td><strong>Shipment Charges:</strong></td><td><span id="shipmentCharge"></span></td></tr>
+                        <tr id="forexRow"><td><strong>Forex Charges(3%):</strong></td><td><span id="forexCharge"></span></td></tr>
+                        <tr><td><strong>Order Total:</strong></td><td><span id="orderTotal"></span></td></tr>
                     </table>
 
                     <div class="user-actions">
                         <button class="btn btn-primary" id="currencyBtn" type="button" onclick="toggleCurrency()">Show in INR</button>
                         <form action="CreateOrderServlet" method="post" style="margin:0;">
-                            <input type="hidden" name="amount" value="<%= orderTotal != null ? orderTotal : "0" %>"/>
-                            <button class="btn btn-primary" id="payNowBtn" type="submit">Pay in Dollar</button>
+                            <input type="hidden" id="hiddenAmount" name="amount" value="0"/>
+                            <button class="btn btn-primary" id="payNowBtn" type="submit">Pay in USD</button>
                         </form>
                     </div>
                 </div>
@@ -212,8 +203,7 @@
         </div>
         <div class="modal-body">
             <input type="hidden" name="email" value="<%= user.getEmail() %>"/>
-            <input type="hidden" name="amount" value="<%= amount != null ? amount : "0" %>" />
-            <input type="hidden" name="isProfile" value= "false" />
+            <input type="hidden" name="isProfile" value="false" />
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" name="name" class="form-control" value="<%= user.getName() %>" required>
