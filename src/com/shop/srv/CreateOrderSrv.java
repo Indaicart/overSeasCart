@@ -27,14 +27,13 @@ public class CreateOrderSrv extends HttpServlet {
         try {
             RazorPayServiceImpl razorPayService = new RazorPayServiceImpl();
             String receiptId = "rcpt_" + System.currentTimeMillis();
-            String currency = "INR";
-
+            String currency = request.getParameter("currency");
             Order order = razorPayService.createOrder(amount, currency, receiptId);
 
             System.out.print("Order details : " + order);
             request.setAttribute("orderId", order.get("id"));  // e.g., "order_Mh0zLhE2..."
             request.setAttribute("amount", amount);
-            request.setAttribute("currency", "INR");
+            request.setAttribute("currency", currency);
             request.setAttribute("razorpayKey", apiKey); // pass public key
 
             request.getRequestDispatcher("payment.jsp").forward(request, response);

@@ -20,7 +20,7 @@ public class RazorPayServiceImpl implements RazorPayService {
     public Order createOrder(double amount , String currency , String receiptId) throws RazorpayException {
         RazorpayClient razorpayClient = new RazorpayClient(apiKey,apiSecret);
         JSONObject orderRequest  = new JSONObject();
-        orderRequest.put("amount", amount *100);
+        orderRequest.put("amount", (int)(amount *100));
         orderRequest.put("currency",currency);
         orderRequest.put("receipt", receiptId);
 

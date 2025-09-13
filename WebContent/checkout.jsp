@@ -26,7 +26,6 @@
 <html>
 <head>
     <title>Checkout</title>
-    <!-- Google Fonts for modern look -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -65,7 +64,6 @@
         }
     </style>
     <script>
-        // Pass clean doubles from JSP
         var usdCartTotal      = <%= cartAmt %>;
         var usdShipmentCharge = <%= ship %>;
         var forexCharge       = <%= forex %>;
@@ -88,28 +86,29 @@
             var currencyBtn     = document.getElementById("currencyBtn");
             var payNowBtn       = document.getElementById("payNowBtn");
             var hiddenAmount    = document.getElementById("hiddenAmount");
+            var currencyField   = document.getElementById("currencyField");
             var forexRow        = document.getElementById("forexRow");
 
             if (isUSD) {
-                // Switch to INR
                 cartTotalElem.innerText   = formatINR(usdCartTotal);
                 shipmentElem.innerText    = formatINR(usdShipmentCharge);
-                orderElem.innerText       = formatINR((usdCartTotal + usdShipmentCharge) ); // forex not included
+                orderElem.innerText       = formatINR((usdCartTotal + usdShipmentCharge));
                 hiddenAmount.value        = ((usdCartTotal + usdShipmentCharge) * conversionRate).toFixed(2);
-                
-                forexRow.style.display    = "none"; // hide forex in INR
+                currencyField.value       = "INR";
+
+                forexRow.style.display    = "none";
                 currencyBtn.innerText     = "Show in USD";
                 payNowBtn.innerText       = "Pay in INR";
                 isUSD = false;
             } else {
-                // Switch to USD
                 cartTotalElem.innerText   = formatUSD(usdCartTotal);
                 shipmentElem.innerText    = formatUSD(usdShipmentCharge);
                 forexChargeElem.innerText = formatUSD(forexCharge);
                 orderElem.innerText       = formatUSD((usdCartTotal + usdShipmentCharge + forexCharge));
                 hiddenAmount.value        = (usdCartTotal + usdShipmentCharge + forexCharge).toFixed(2);
+                currencyField.value       = "USD";
 
-                forexRow.style.display    = "table-row"; // show forex in USD
+                forexRow.style.display    = "table-row";
                 currencyBtn.innerText     = "Show in INR";
                 payNowBtn.innerText       = "Pay in USD";
                 isUSD = true;
@@ -124,7 +123,8 @@
             document.getElementById("currencyBtn").innerText = "Show in INR";
             document.getElementById("payNowBtn").innerText   = "Pay in USD";
             document.getElementById("hiddenAmount").value    = usdOrderTotal.toFixed(2);
-            document.getElementById("forexRow").style.display = "table-row"; // show forex in USD by default
+            document.getElementById("currencyField").value   = "USD";
+            document.getElementById("forexRow").style.display = "table-row";
         }
     </script>
 </head>
@@ -183,6 +183,7 @@
                         <button class="btn btn-primary" id="currencyBtn" type="button" onclick="toggleCurrency()">Show in INR</button>
                         <form action="CreateOrderServlet" method="post" style="margin:0;">
                             <input type="hidden" id="hiddenAmount" name="amount" value="0"/>
+                            <input type="hidden" id="currencyField" name="currency" value="USD"/>
                             <button class="btn btn-primary" id="payNowBtn" type="submit">Pay in USD</button>
                         </form>
                     </div>
