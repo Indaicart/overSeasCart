@@ -14,6 +14,8 @@ public interface ProductService {
 
 	public String removeProduct(String prodId);
 
+	public int getProductWeight(String prodId);
+
 	public String updateProduct(ProductBean prevProduct, ProductBean updatedProduct);
 
 	public String updateProductPrice(String prodId, double updatedPrice);
@@ -29,6 +31,8 @@ public interface ProductService {
 	public ProductBean getProductDetails(String prodId);
 
 	public String updateProductWithoutImage(String prevProductId, ProductBean updatedProduct);
+
+	public String updateProductWithImage(String prevProductId, ProductBean updatedProduct);
 
 	public double getProductPrice(String prodId);
 

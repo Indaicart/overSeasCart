@@ -12,7 +12,9 @@ import com.shop.beans.OrderBean;
 import com.shop.beans.OrderDetails;
 import com.shop.beans.TransactionBean;
 import com.shop.service.OrderService;
+import com.shop.utility.DBConstantsUtil;
 import com.shop.utility.DBUtil;
+import com.shop.utility.IDUtil;
 import com.shop.utility.MailMessage;
 
 public class OrderServiceImpl implements OrderService {
@@ -21,28 +23,36 @@ public class OrderServiceImpl implements OrderService {
 	public String paymentSuccess(String userName, double paidAmount) {
 		String status = "Order Placement Failed!";
 
+		System.out.println("############### Amount " + paidAmount);
 		List<CartBean> cartItems = new ArrayList<CartBean>();
 		cartItems = new CartServiceImpl().getAllCartItems(userName);
+
 
 		if (cartItems.size() == 0)
 			return status;
 
-		TransactionBean transaction = new TransactionBean(userName, paidAmount);
+
 		boolean ordered = false;
 
-		String transactionId = transaction.getTransactionId();
+		String transactionId = IDUtil.generateTransId();
 
-		// System.out.println("Transaction: "+transaction.getTransactionId()+"
-		// "+transaction.getTransAmount()+" "+transaction.getUserName()+"
-		// "+transaction.getTransDateTime());
+		double totalCartValue = 0.0;
+		double totalWeight = 0.0;
+		double totalShipmentCharges = 0.0;
+		int currency = 0;
+
 
 		for (CartBean item : cartItems) {
 
 			double amount = new ProductServiceImpl().getProductPrice(item.getProdId()) * item.getQuantity();
+			double weight = new ProductServiceImpl().getProductWeight(item.getProdId()) * item.getQuantity() / 1000.0;
+			totalCartValue += amount;
+			totalWeight += weight;
 
 			OrderBean order = new OrderBean(transactionId, item.getProdId(), item.getQuantity(), amount);
 
 			ordered = addOrder(order);
+			System.out.println("############### Ordered" + ordered);
 			if (!ordered)
 				break;
 			else {
@@ -59,6 +69,11 @@ public class OrderServiceImpl implements OrderService {
 		}
 
 		if (ordered) {
+			String shipChargeStr = DBConstantsUtil.getValueFromDB("ship_charge");
+			double shipCharge = Double.parseDouble(shipChargeStr);
+
+			totalShipmentCharges = shipCharge * Math.ceil(totalWeight);
+			TransactionBean transaction = new TransactionBean(userName, paidAmount, transactionId, totalCartValue, totalWeight, totalShipmentCharges, currency);
 			ordered = new OrderServiceImpl().addTransaction(transaction);
 			if (ordered) {
 
@@ -111,12 +126,17 @@ public class OrderServiceImpl implements OrderService {
 		PreparedStatement ps = null;
 
 		try {
-			ps = con.prepareStatement("insert into transactions values(?,?,?,?)");
+			ps = con.prepareStatement("insert into transactions values(?,?,?,?,?,?,?,?)");
 
 			ps.setString(1, transaction.getTransactionId());
 			ps.setString(2, transaction.getUserName());
 			ps.setTimestamp(3, transaction.getTransDateTime());
-			ps.setDouble(4, transaction.getTransAmount());
+
+			ps.setDouble(4, transaction.getTotalCartValue());
+			ps.setDouble(5, transaction.getTotalWeight());
+			ps.setDouble(6, transaction.getShipmentCharges());
+			ps.setDouble(7, transaction.getCurrency());
+			ps.setDouble(8, transaction.getTransAmount());
 
 			int k = ps.executeUpdate();
 

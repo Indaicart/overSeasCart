@@ -29,7 +29,13 @@
         },
         "theme": {
             "color": "#3399cc"
-        }
+        },
+        "modal": {
+                "ondismiss": function () {
+                    // 👇 User closed/cancelled payment
+                    window.location.href = "payment-cancelled.jsp";
+                }
+            }
     };
 
     var rzp1 = new Razorpay(options);

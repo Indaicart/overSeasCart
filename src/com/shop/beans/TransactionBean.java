@@ -15,6 +15,11 @@ public class TransactionBean implements Serializable {
 
 	private Timestamp transDateTime;
 
+	private double totalCartValue;
+	private double totalWeight;
+	private double shipmentCharges;
+	private int currency;
+
 	private double transAmount;
 
 	public TransactionBean() {
@@ -30,12 +35,17 @@ public class TransactionBean implements Serializable {
 		this.transDateTime = timestamp;
 	}
 
-	public TransactionBean(String userName, double transAmount) {
+	public TransactionBean(String userName, double transAmount, String transactionId, double totalCartValue, double totalWeight, double shipmentCharges,
+						   int currency) {
 		super();
 		this.userName = userName;
 		this.transAmount = transAmount;
 
-		this.transactionId = IDUtil.generateTransId();
+		this.transactionId = transactionId;
+		this.totalCartValue = totalCartValue;
+		this.totalWeight = totalWeight;
+		this.shipmentCharges = shipmentCharges;
+		this.currency = currency;
 
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
 
@@ -47,11 +57,16 @@ public class TransactionBean implements Serializable {
 
 	}
 
-	public TransactionBean(String transactionId, String userName, double transAmount) {
+	public TransactionBean(String transactionId, String userName, double transAmount, double totalCartValue, double totalWeight,
+						   double shipmentCharges, int currency) {
 		super();
 		this.transactionId = transactionId;
 		this.userName = userName;
 		this.transAmount = transAmount;
+		this.totalCartValue = totalCartValue;
+		this.totalWeight = totalWeight;
+		this.shipmentCharges = shipmentCharges;
+		this.currency = currency;
 
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
 
@@ -111,4 +126,35 @@ public class TransactionBean implements Serializable {
 		this.transAmount = transAmount;
 	}
 
+	public double getTotalCartValue() {
+		return totalCartValue;
+	}
+
+	public void setTotalCartValue(double totalCartValue) {
+		this.totalCartValue = totalCartValue;
+	}
+
+	public double getTotalWeight() {
+		return totalWeight;
+	}
+
+	public void setTotalWeight(double totalWeight) {
+		this.totalWeight = totalWeight;
+	}
+
+	public double getShipmentCharges() {
+		return shipmentCharges;
+	}
+
+	public void setShipmentCharges(double shipmentCharges) {
+		this.shipmentCharges = shipmentCharges;
+	}
+
+	public int getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(int currency) {
+		this.currency = currency;
+	}
 }

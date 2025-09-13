@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 public class productImagesDAO {
 
@@ -54,5 +55,47 @@ public class productImagesDAO {
                 e.printStackTrace();
             }
         }
+    }
+
+    public boolean deleteAllProductImages(String prodId) {
+        boolean isDeleted = false;
+        Connection con = DBUtil.provideConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement("DELETE FROM product_images WHERE pid = ?");
+            ps.setString(1, prodId);
+            int count = ps.executeUpdate();
+            isDeleted = (count >= 0); // zero or more rows deleted means success
+        } catch (SQLException e) {
+            e.printStackTrace();
+            isDeleted = false;
+        } finally {
+            DBUtil.closeConnection(ps);
+            DBUtil.closeConnection(con);
+        }
+        return isDeleted;
+    }
+
+    public boolean addProductImages(String prodId, List<InputStream> imageStreams) {
+        boolean isAdded = false;
+        Connection con = DBUtil.provideConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement("INSERT INTO product_images (pid, image) VALUES (?, ?)");
+            for (InputStream imageStream : imageStreams) {
+                ps.setString(1, prodId);
+                ps.setBinaryStream(2, imageStream);
+                ps.addBatch();
+            }
+            ps.executeBatch();
+            isAdded = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            isAdded = false;
+        } finally {
+            DBUtil.closeConnection(ps);
+            DBUtil.closeConnection(con);
+        }
+        return isAdded;
     }
 }

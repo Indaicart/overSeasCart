@@ -15,6 +15,21 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+        $(document).ready(function(){
+            $("input[name='updateImages']").click(function(){
+                if ($(this).val() === "yes") {
+                    $("#imageUploadSection").show();
+                } else {
+                    $("#imageUploadSection").hide();
+                }
+            });
+        });
+        function addAnotherImage() {
+            $("#imageUploadContainer").append('<input type="file" name="productImages" class="form-control" style="margin-top:5px;" />');
+        }
+    </script>
 </head>
 <body style="background-color: #E6F9E6;">
 	<%
@@ -45,7 +60,7 @@
 		<div class="row"
 			style="margin-top: 5px; margin-left: 2px; margin-right: 2px;">
 			<form action="./UpdateProductSrv" method="post"
-				class="col-md-6 col-md-offset-3"
+				enctype="multipart/form-data" class="col-md-6 col-md-offset-3"
 				style="border: 2px solid black; border-radius: 10px; background-color: #FFE5CC; padding: 10px;">
 				<div style="font-weight: bold;" class="text-center">
 					<div class="form-group">
@@ -122,6 +137,22 @@
 							id="last_name" name="quantity" required>
 					</div>
 				</div>
+				<div class="form-group">
+                    <label>Do you want to update/add product images?</label><br>
+                    <label class="radio-inline">
+                        <input type="radio" name="updateImages" value="yes"> Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="updateImages" value="no" checked> No
+                    </label>
+                </div>
+                <div id="imageUploadSection" style="display:none;">
+                    <label for="productImages">Product Images</label>
+                    <div id="imageUploadContainer">
+                        <input type="file" name="productImages" class="form-control" />
+                    </div>
+                    <button type="button" class="btn btn-info" onclick="addAnotherImage()" style="margin-top:5px;">+ Add Another Image</button>
+                </div>
 				<div class="row text-center">
 					<div class="col-md-4" style="margin-bottom: 2px;">
 						<button formaction="adminViewProduct.jsp" class="btn btn-danger">Cancel</button>

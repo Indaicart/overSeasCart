@@ -473,6 +473,72 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public String updateProductWithImage(String prevProductId, ProductBean updatedProduct) {
+		String status = "Product Updation Failed!";
+
+		if (!prevProductId.equals(updatedProduct.getProdId())) {
+
+			status = "Both Products are Different, Updation Failed!";
+
+			return status;
+		}
+
+		int prevQuantity = new ProductServiceImpl().getProductQuantity(prevProductId);
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+
+		try {
+			ps = con.prepareStatement("update product set pname=?,ptype=?,pinfo=?,pweight=?,pprice=?,pquantity=?,image=? where pid=?");
+
+			ps.setString(1, updatedProduct.getProdName());
+			ps.setString(2, updatedProduct.getProdType());
+			ps.setString(3, updatedProduct.getProdInfo());
+			ps.setInt(4, updatedProduct.getProdWeight());
+			ps.setDouble(5, updatedProduct.getProdPrice());
+			ps.setInt(6, updatedProduct.getProdQuantity());
+			ps.setBlob(7, updatedProduct.getProdImage());
+			ps.setString(8, prevProductId);
+
+			int k = ps.executeUpdate();
+			// System.out.println("prevQuantity: "+prevQuantity);
+			if ((k > 0) && (prevQuantity < updatedProduct.getProdQuantity())) {
+				status = "Product Updated Successfully!";
+				// System.out.println("updated!");
+				List<DemandBean> demandList = new DemandServiceImpl().haveDemanded(prevProductId);
+
+				for (DemandBean demand : demandList) {
+
+					String userFName = new UserServiceImpl().getFName(demand.getUserName());
+					try {
+						MailMessage.productAvailableNow(demand.getUserName(), userFName, updatedProduct.getProdName(),
+								prevProductId);
+					} catch (Exception e) {
+						System.out.println("Mail Sending Failed: " + e.getMessage());
+					}
+					boolean flag = new DemandServiceImpl().removeProduct(demand.getUserName(), prevProductId);
+
+					if (flag)
+						status += " And Mail Send to the customers who were waiting for this product!";
+				}
+			} else if (k > 0)
+				status = "Product Updated Successfully!";
+			else
+				status = "Product Not available in the store!";
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		// System.out.println("Prod Update status : "+status);
+
+		return status;
+	}
+
+	@Override
 	public double getProductPrice(String prodId) {
 		double price = 0;
 
@@ -500,6 +566,36 @@ public class ProductServiceImpl implements ProductService {
 		DBUtil.closeConnection(ps);
 
 		return price;
+	}
+
+	@Override
+	public int getProductWeight(String prodId) {
+		int weight = 0;
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("select * from product where pid=?");
+
+			ps.setString(1, prodId);
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				weight = rs.getInt("pweight");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+
+		return weight;
 	}
 
 	@Override
