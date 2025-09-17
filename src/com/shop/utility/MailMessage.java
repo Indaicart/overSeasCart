@@ -7,8 +7,8 @@ public class MailMessage {
 		String recipient = emailId;
 		String subject = "Registration Successfull";
 		String htmlTextMessage = "" + "<html>" + "<body>"
-				+ "<h2 style='color:green;'>Welcome to Indian Cart</h2>" + "" + "Hi " + name + ","
-				+ "<br><br>Thanks for singing up with Indian Cart. We are glad that you choose us."
+				+ "<h2 style='color:green;'>Welcome to Bharat Bazaar</h2>" + "" + "Hi " + name + ","
+				+ "<br><br>Thanks for singing up with Bharat Bazaar. We are glad that you choose us."
 				+ "<br>So please visit our site and explore the collections."
 				+ "Have a good day!<br>" + "" + "</body>" + "</html>";
 		try {
@@ -21,16 +21,16 @@ public class MailMessage {
 
 	public static void transactionSuccess(String recipientEmail, String name, String transId, double transAmount) {
 		String recipient = recipientEmail;
-		String subject = "Order Placed at Indian Cart";
+		String subject = "Order Placed at Bharat Bazaar";
 		String htmlTextMessage = "<html>" + "  <body>" + "    <p>" + "      Hey " + name + ",<br/><br/>"
-				+ "      We are glad that you shop with Indian Cart!" + "      <br/><br/>"
+				+ "      We are glad that you shop with Bharat Bazaar!" + "      <br/><br/>"
 				+ "      Your order has been placed successfully and under process to be shipped."
 				+ "      <br/>" + "      Here is Your Transaction Details:<br/>" + "      <br/>"
 				+ "      <font style=\"color:red;font-weight:bold;\">Order Id:</font>"
 				+ "      <font style=\"color:green;font-weight:bold;\">" + transId + "</font><br/>" + "      <br/>"
 				+ "      <font style=\"color:red;font-weight:bold;\">Amount Paid:</font> <font style=\"color:green;font-weight:bold;\">"
 				+ transAmount + "</font>" + "      <br/><br/>" + "      Thanks for shopping with us!<br/><br/>"
-				+ "      Come Shop Again! <br/<br/> <font style=\"color:green;font-weight:bold;\">Indian Cart.</font>"
+				+ "      Come Shop Again! <br/<br/> <font style=\"color:green;font-weight:bold;\">Bharat Bazaar.</font>"
 				+ "    </p>" + "    " + "  </body>" + "</html>";
 
 		try {
@@ -42,9 +42,9 @@ public class MailMessage {
 
 	public static void orderShipped(String recipientEmail, String name, String transId, double transAmount) {
 		String recipient = recipientEmail;
-		String subject = "Hurray!!, Your Order has been Shipped from Indian Cart";
+		String subject = "Hurray!!, Your Order has been Shipped from Bharat Bazaar";
 		String htmlTextMessage = "<html>" + "  <body>" + "    <p>" + "      Hey " + name + ",<br/><br/>"
-				+ "      We are glad that you shop with Indian Cart!" + "      <br/><br/>"
+				+ "      We are glad that you shop with Bharat Bazaar!" + "      <br/><br/>"
 				+ "      Your order has been shipped successfully and on the way to be delivered."
 				+ "<br/><h6>Please Note that this is a demo projet Email and you have not made any real transaction with us till now!</h6>"
 				+ "      <br/>" + "      Here is Your Transaction Details:<br/>" + "      <br/>"
@@ -52,7 +52,7 @@ public class MailMessage {
 				+ "      <font style=\"color:green;font-weight:bold;\">" + transId + "</font><br/>" + "      <br/>"
 				+ "      <font style=\"color:red;font-weight:bold;\">Amount Paid:</font> <font style=\"color:green;font-weight:bold;\">"
 				+ transAmount + "</font>" + "      <br/><br/>" + "      Thanks for shopping with us!<br/><br/>"
-				+ "      Come Shop Again! <br/<br/> <font style=\"color:green;font-weight:bold;\">Indian Cart.</font>"
+				+ "      Come Shop Again! <br/<br/> <font style=\"color:green;font-weight:bold;\">Bharat Bazaar.</font>"
 				+ "    </p>" + "    " + "  </body>" + "</html>";
 
 		try {
@@ -64,9 +64,9 @@ public class MailMessage {
 
 	public static void productAvailableNow(String recipientEmail, String name, String prodName, String prodId) {
 		String recipient = recipientEmail;
-		String subject = "Product " + prodName + " is Now Available at Indian Cart";
+		String subject = "Product " + prodName + " is Now Available at Bharat Bazaar";
 		String htmlTextMessage = "<html>" + "  <body>" + "    <p>" + "      Hey " + name + ",<br/><br/>"
-				+ "      We are glad that you shop with Indian Cart!" + "      <br/><br/>"
+				+ "      We are glad that you shop with Bharat Bazaar!" + "      <br/><br/>"
 				+ "      As per your recent browsing history, we seen that you were searching for an item that was not available in sufficient amount"
 				+ " at that time. <br/><br/>"
 				+ "We are glad to say that the product named <font style=\"color:green;font-weight:bold;\">" + prodName
@@ -79,7 +79,7 @@ public class MailMessage {
 				+ prodId + " " + "      </font><br/>" + "      <br/>"
 				+ "      <font style=\"color:red;font-weight:bold;\">Product Name: </font> <font style=\"color:green;font-weight:bold;\">"
 				+ prodName + "</font>" + "      <br/><br/>" + "      Thanks for shopping with us!<br/><br/>"
-				+ "      Come Shop Again! <br/<br/><br/> <font style=\"color:green;font-weight:bold;\">Indian Cart.</font>"
+				+ "      Come Shop Again! <br/<br/><br/> <font style=\"color:green;font-weight:bold;\">Bharat Bazaar.</font>"
 				+ "    </p>" + "    " + "  </body>" + "</html>";
 
 		try {

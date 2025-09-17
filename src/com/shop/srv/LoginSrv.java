@@ -42,8 +42,9 @@ public class LoginSrv extends HttpServlet {
 		
 		if (status.equalsIgnoreCase("valid")) {
 			// valid user
-			if(userName.equals("admin@gmail.com")) {
+			if(userName.equals("my.official.bharat.bazaar@gmail.com")) {
 				userType = "admin";
+				System.out.println("Admin logged in");
 				rd = request.getRequestDispatcher("adminViewProduct.jsp");
 			}
 			else {
