@@ -36,6 +36,7 @@ public class PaymentCallbackServlet extends HttpServlet {
         String razorpayOrderId = request.getParameter("razorpay_order_id");
         String razorpaySignature = request.getParameter("razorpay_signature");
 
+
         // ✅ Optional: Validate signature here using HMAC SHA256
 
         // ✅ Save payment details to DB or perform business logic
@@ -53,11 +54,14 @@ public class PaymentCallbackServlet extends HttpServlet {
         	RazorpayClient razorpayClient = new RazorpayClient(apiKey,apiSecret);
             Payment payment = razorpayClient.payments.fetch(razorpayPaymentId);
             System.out.println("Payment details : " + payment.toString());
+            System.out.println("------------------------------------------");
+            System.out.println("Currency : " + payment.get("currency"));
+            System.out.println("------------------------------------------");
             System.out.println("Amount : " + payment.get("amount"));
             int amountInPaise = (int) payment.get("amount");
             double amountInRupees = amountInPaise / 100.0;
 
-            String status = new OrderServiceImpl().paymentSuccess(userName, amountInRupees);
+            String status = new OrderServiceImpl().paymentSuccess(userName, amountInRupees, payment.get("currency"));
 
             // Redirect to success page
             

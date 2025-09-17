@@ -40,8 +40,12 @@
 				<div></div>
 				<div class="row">
 					<div class="col-md-12 form-group">
-						<label for="password">Password</label> 
-						<input type="text" placeholder="Enter Passowrd" name="password" class="form-control" id="password" required>
+						<label for="password">Password</label>
+						<input type="password" name="password" class="form-control"
+                                id="password" required minlength="8" maxlength="20"
+                                pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}"
+                                placeholder="Enter Password"
+                                title="Password must be 8-20 characters, include uppercase, lowercase, and a number">
 					</div>
 				</div>
 				<div class="row">

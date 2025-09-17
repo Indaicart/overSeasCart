@@ -36,7 +36,7 @@ public class ChangePasswordSrv extends HttpServlet {
 		UserServiceImpl userService = new UserServiceImpl();
 		boolean isUpdated = userService.updatePassword(email, password);
 		ResourceBundle rb = ResourceBundle.getBundle("application");
-		String supportEmail = rb.getString("shipment.charge");
+		String supportEmail = rb.getString("mailer.email");
 
 		if (isUpdated) {
 			// Send mail

@@ -8,7 +8,7 @@ import com.shop.beans.TransactionBean;
 
 public interface OrderService {
 
-	public String paymentSuccess(String userName, double paidAmount);
+	public String paymentSuccess(String userName, double paidAmount, String currency);
 
 	public boolean addOrder(OrderBean order);
 

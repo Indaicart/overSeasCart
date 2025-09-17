@@ -1,5 +1,6 @@
 package com.shop.srv;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -32,8 +33,19 @@ public class OrderServlet extends HttpServlet {
 			response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
 		}
 
+		StringBuilder sb = new StringBuilder();
+		BufferedReader reader = request.getReader(); // or request.getInputStream()
+		String line;
+		while ((line = reader.readLine()) != null) {
+		    sb.append(line).append("\n");
+		}
+		String body = sb.toString();
+		System.out.println("------------------------------------------");
+		System.out.println("OrderServlet Request Body: " + body);
+		System.out.println("------------------------------------------");
+
 		double paidAmount = Double.parseDouble(request.getParameter("amount"));
-		String status = new OrderServiceImpl().paymentSuccess(userName, paidAmount);
+		String status = new OrderServiceImpl().paymentSuccess(userName, paidAmount, "NA");
 
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");

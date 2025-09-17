@@ -39,22 +39,20 @@ public class LoginSrv extends HttpServlet {
 		HttpSession session = request.getSession();
 		RequestDispatcher rd;
 		
-		if(userName.equals("admin@gmail.com") && password.equals("admin")) {
-			userType = "admin";
-			status = "valid";
-			rd = request.getRequestDispatcher("adminViewProduct.jsp");
-		}
-		else {
-			userType = "customer";
-			UserBean user = udao.getUserDetails(userName, password);
-			session.setAttribute("userdata", user);
-			rd = request.getRequestDispatcher("userHome.jsp");
-		}
-		
-		System.out.println("User Type: " + userType);
 		
 		if (status.equalsIgnoreCase("valid")) {
 			// valid user
+			if(userName.equals("admin@gmail.com")) {
+				userType = "admin";
+				rd = request.getRequestDispatcher("adminViewProduct.jsp");
+			}
+			else {
+				userType = "customer";
+				UserBean user = udao.getUserDetails(userName, password);
+				session.setAttribute("userdata", user);
+				rd = request.getRequestDispatcher("userHome.jsp");
+			}
+			
 			session.setAttribute("username", userName);
 			session.setAttribute("password", password);
 			session.setAttribute("usertype", userType);
@@ -67,7 +65,6 @@ public class LoginSrv extends HttpServlet {
 			rd = request.getRequestDispatcher("login.jsp?message=" + status);
 			rd.forward(request, response);
 		}
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

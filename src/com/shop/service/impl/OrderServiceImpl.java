@@ -20,8 +20,16 @@ import com.shop.utility.MailMessage;
 public class OrderServiceImpl implements OrderService {
 
 	@Override
-	public String paymentSuccess(String userName, double paidAmount) {
+	public String paymentSuccess(String userName, double paidAmount, String currency) {
 		String status = "Order Placement Failed!";
+		
+		int intCurrency = -1;
+		if (currency.equalsIgnoreCase("INR")) {
+			intCurrency = 0;
+		}
+		else if (currency.equalsIgnoreCase("USD")) {
+			intCurrency = 1;
+		}
 
 		System.out.println("############### Amount " + paidAmount);
 		List<CartBean> cartItems = new ArrayList<CartBean>();
@@ -39,8 +47,6 @@ public class OrderServiceImpl implements OrderService {
 		double totalCartValue = 0.0;
 		double totalWeight = 0.0;
 		double totalShipmentCharges = 0.0;
-		int currency = 0;
-
 
 		for (CartBean item : cartItems) {
 
@@ -73,7 +79,7 @@ public class OrderServiceImpl implements OrderService {
 			double shipCharge = Double.parseDouble(shipChargeStr);
 
 			totalShipmentCharges = shipCharge * Math.ceil(totalWeight);
-			TransactionBean transaction = new TransactionBean(userName, paidAmount, transactionId, totalCartValue, totalWeight, totalShipmentCharges, currency);
+			TransactionBean transaction = new TransactionBean(userName, paidAmount, transactionId, totalCartValue, totalWeight, totalShipmentCharges, intCurrency);
 			ordered = new OrderServiceImpl().addTransaction(transaction);
 			if (ordered) {
 
