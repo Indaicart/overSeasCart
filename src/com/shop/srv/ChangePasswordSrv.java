@@ -42,14 +42,14 @@ public class ChangePasswordSrv extends HttpServlet {
 			// Send mail
 			String htmlMessage = "<html><body>" +
 		              "<h2 style='color:green;'>Your Password is changed</h2>" +
-		              "<p>Your password was changed successfully. You can now log in with your new credentials.</p>" +
+		              "<p>Your password was changed successfully. You can now Sign in with your new credentials.</p>" +
 		              "<p>If this wasn't you, please contact " + supportEmail + " immediately.</p>" +
 		              "</body></html>";
 			String mailSubject = "Password Reset Successfull";
 			String status = MailMessage.sendMessage(email, mailSubject, htmlMessage);
 			System.out.println("Password update mail sent status" + status);
 			// Redirect to login with success message
-			response.sendRedirect("login.jsp?message=Password updated successfully. Please login.");
+			response.sendRedirect("login.jsp?message=Password updated successfully. Please Sign in.");
 		} else {
 			// Stay on change password page with error
 			request.setAttribute("message", "Failed to update password. Please try again.");

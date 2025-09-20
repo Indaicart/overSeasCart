@@ -30,7 +30,7 @@ public class PaymentCallbackServlet extends HttpServlet {
 
         if(userName == null || password == null) {
 
-            response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
+            response.sendRedirect("login.jsp?message=Session Expired, Sign In Again!!");
         }
         String razorpayPaymentId = request.getParameter("razorpay_payment_id");
         String razorpayOrderId = request.getParameter("razorpay_order_id");

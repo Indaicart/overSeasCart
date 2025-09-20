@@ -30,7 +30,7 @@ public class OrderServlet extends HttpServlet {
 
 		if (userName == null || password == null) {
 
-			response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
+			response.sendRedirect("login.jsp?message=Session Expired, Sign In Again!!");
 		}
 
 		StringBuilder sb = new StringBuilder();

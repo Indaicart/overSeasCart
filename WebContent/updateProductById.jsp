@@ -6,6 +6,7 @@
 <title>Update Product</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="images/logo.png">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/changes.css">
@@ -22,11 +23,11 @@
 	String password = (String) session.getAttribute("password");
 
 	if (userType == null || !userType.equals("admin")) {
-		response.sendRedirect("login.jsp?message=Access Denied, Login As Admin!!");
+		response.sendRedirect("login.jsp?message=Access Denied, Sign In As Admin!!");
 		return;
 
 	} else if (userName == null || password == null) {
-		response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
+		response.sendRedirect("login.jsp?message=Session Expired, Sign In Again!!");
 		return;
 	}
 	%>

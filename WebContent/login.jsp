@@ -3,7 +3,8 @@ pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Login</title>
+    <title>Sign In</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
@@ -57,7 +58,7 @@ pageEncoding="ISO-8859-1"%>
           onsubmit="return setUserType()"
         >
           <div style="font-weight: bold" class="text-center">
-            <h2 style="color: green">Login Form</h2>
+            <h2 style="color: green">Sign In</h2>
             <% if (message != null) { %>
             <p style="color: blue"><%=message%></p>
             <% } %>
@@ -108,7 +109,7 @@ pageEncoding="ISO-8859-1"%>
 
           <div class="row">
             <div class="col-md-12 text-center">
-              <button type="submit" class="btn btn-success">Login</button>
+              <button type="submit" class="btn btn-success">Sign In</button>
             </div>
           </div>
         </form>

@@ -32,10 +32,8 @@ public class LoginSrv extends HttpServlet {
 		String userType;
 		response.setContentType("text/html");
 
-		String status = "Login Denied! Invalid Username or password.";
-		
 		UserServiceImpl udao = new UserServiceImpl();
-		status = udao.isValidCredential(userName, password);
+		String status = udao.isValidCredential(userName, password);
 		HttpSession session = request.getSession();
 		RequestDispatcher rd;
 		
@@ -44,7 +42,7 @@ public class LoginSrv extends HttpServlet {
 			// valid user
 			if(userName.equals("my.official.bharat.bazaar@gmail.com")) {
 				userType = "admin";
-				System.out.println("Admin logged in");
+				System.out.println("Admin Signed in");
 				rd = request.getRequestDispatcher("adminViewProduct.jsp");
 			}
 			else {
@@ -59,10 +57,12 @@ public class LoginSrv extends HttpServlet {
 			session.setAttribute("usertype", userType);
 
 			rd.forward(request, response);
-			System.out.println("Login successfull!!!");
+			System.out.println("Sign In successfull!!!");
 		} else {
 			// invalid user;
-			System.out.println("Login unsuccessfull!!!");
+			session.setAttribute("username", userName);
+			status = "Sign In Denied! Invalid Username or password.";
+			System.out.println("Sign In unsuccessfull!!!");
 			rd = request.getRequestDispatcher("login.jsp?message=" + status);
 			rd.forward(request, response);
 		}

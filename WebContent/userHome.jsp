@@ -8,6 +8,7 @@
 <title>Bharat Bazaar</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="images/logo.png">
 <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/changes.css">
@@ -165,7 +166,7 @@
 
     if (userName == null || password == null) {
 
-       response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
+       response.sendRedirect("login.jsp?message=Session Expired, Sign In Again!!");
     }
 
     ProductServiceImpl prodDao = new ProductServiceImpl();
@@ -197,8 +198,9 @@
       <div class="msg-bar text-center"><%=message %></div>
       <div class="product-flex-wrap">
         <%
-          for (ProductBean product : products) {
-             int cartQty = new CartServiceImpl().getCartItemCount(userName, product.getProdId());
+        CartServiceImpl cartService = new CartServiceImpl();
+		for (ProductBean product : products) {
+			int cartQty = cartService.getCartItemCount(userName, product.getProdId());
         %>
         <div class="product-card1">
           <a href="productDetails.jsp?pid=<%=product.getProdId()%>">

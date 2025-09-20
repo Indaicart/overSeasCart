@@ -3,7 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Register</title>
+<title>Sign Up</title>
+<link rel="icon" type="image/png" href="images/logo.png">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -151,7 +152,7 @@ function togglePassword() {
                 class="col-md-6 col-md-offset-3">
 
                 <div style="font-weight: bold;" class="text-center">
-                    <h2>Registration Form</h2>
+                    <h2>Sign Up</h2>
                     <%
                     if (message != null) {
                     %>
@@ -177,33 +178,26 @@ function togglePassword() {
                 </div>
 
                 <div class="form-group">
-                  <label for="flat">Flat, House no., Building, Company, Apartment</label>
-                  <input type="text" name="flat" class="form-control" id="flat"
+                  <label for="address1">Address 1</label>
+                  <input type="text" name="flat" class="form-control" id="flat" required
                          value="<%= request.getAttribute("flat") != null ? request.getAttribute("flat") : "" %>">
                 </div>
 
                 <div class="form-group">
-                  <label for="street">Area, Street, Sector, Village</label>
+                  <label for="address2">Address 2</label>
                   <input type="text" name="street" class="form-control" id="street"
                          value="<%= request.getAttribute("street") != null ? request.getAttribute("street") : "" %>">
                 </div>
 
-                <div class="form-group">
-                  <label for="landmark">Landmark</label>
-                  <input type="text" name="landmark" class="form-control" id="landmark"
-                         placeholder="E.g. near Apollo Hospital"
-                         value="<%= request.getAttribute("landmark") != null ? request.getAttribute("landmark") : "" %>">
-                </div>
-
                 <div class="row">
                   <div class="col-md-6 form-group">
-                    <label for="city">Town/City</label>
-                    <input type="text" name="city" class="form-control" id="city"
+                    <label for="city">City</label>
+                    <input type="text" name="city" class="form-control" id="city" required
                            value="<%= request.getAttribute("city") != null ? request.getAttribute("city") : "" %>">
                 </div>
                   <div class="col-md-6 form-group">
-                    <label for="state">State</label>
-                    <select name="state" id="state" class="form-control">
+                    <label for="state">State/Province</label>
+                    <select name="state" id="state" class="form-control" required>
                       <option value="">Select State</option>
                       <option value="AL">Alabama</option>
                       <option value="AK">Alaska</option>
@@ -266,7 +260,7 @@ function togglePassword() {
                         value="<%= request.getAttribute("mobile") != null ? request.getAttribute("mobile") : "" %>">
                     </div>
                     <div class="col-md-6 form-group">
-                        <label for="last_name">Zip code</label>
+                        <label for="last_name">Zip/Postal Code</label>
                         <input type="number" name="pincode" class="form-control" id="pincode" required
                         value="<%= request.getAttribute("pincode") != null ? request.getAttribute("pincode") : "" %>">
                     </div>

@@ -37,7 +37,7 @@ public class SendOtpSrv extends HttpServlet {
 					+ "<p>Your OTP is: <strong style='color:blue;'>" + otp + "</strong></p>" + "</body></html>";
 			mailSubject = "Your OTP for Registration";
 		}
-		System.out.println("OTP: " + otp);
+//		System.out.println("OTP: " + otp);
 
 		UserServiceImpl udao = new UserServiceImpl();
 		boolean registred = udao.isRegistered(email);

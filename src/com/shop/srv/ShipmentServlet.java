@@ -33,7 +33,7 @@ public class ShipmentServlet extends HttpServlet {
 		String userType = (String) session.getAttribute("usertype");
 		if (userType == null) {
 
-			response.sendRedirect("login.jsp?message=Access Denied, Login Again!!");
+			response.sendRedirect("login.jsp?message=Access Denied, Sign In Again!!");
 			return;
 		}
 

@@ -36,7 +36,7 @@ public class AddtoCart extends HttpServlet {
 		String password = (String) session.getAttribute("password");
 		String usertype = (String) session.getAttribute("usertype");
 		if (userName == null || password == null || usertype == null || !usertype.equalsIgnoreCase("customer")) {
-			response.sendRedirect("login.jsp?message=Session Expired, Login Again to Continue!");
+			response.sendRedirect("login.jsp?message=Session Expired, Sign In Again to Continue!");
 			return;
 		}
 

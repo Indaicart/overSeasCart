@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String isValidCredential(String emailId, String password) {
-		String status = "Login Denied! Incorrect Username or Password";
+		String status = "Sign In Denied! Incorrect Username or Password";
 
 		Connection con = DBUtil.provideConnection();
 

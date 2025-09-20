@@ -8,6 +8,7 @@
 <title>Profile Details</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="images/logo.png">
 <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
@@ -119,7 +120,7 @@ body {
     String password = (String) session.getAttribute("password");
 
     if (userName == null || password == null) {
-       response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
+       response.sendRedirect("login.jsp?message=Session Expired, Sign In Again!!");
     }
 
     UserService dao = new UserServiceImpl();
@@ -166,16 +167,12 @@ body {
                 </div>
                 <!-- Address Details -->
                     <div class="detail-row">
-                        <div class="detail-label">House No.</div>
+                        <div class="detail-label">Address 1</div>
                         <div class="detail-value"><%=address.getFlat()%></div>
                     </div>
                     <div class="detail-row">
-                        <div class="detail-label">Street</div>
+                        <div class="detail-label">Address 2</div>
                         <div class="detail-value"><%=address.getStreet()%></div>
-                    </div>
-                    <div class="detail-row">
-                        <div class="detail-label">LandMark</div>
-                        <div class="detail-value"><%=address.getLandmark()%></div>
                     </div>
                     <div class="detail-row">
                         <div class="detail-label">City</div>
@@ -186,7 +183,7 @@ body {
                         <div class="detail-value"><%=StateUtil.getStateName(address.getState())%></div>
                     </div>
                     <div class="detail-row">
-                        <div class="detail-label">Pincode</div>
+                        <div class="detail-label">Zip/Postal Code</div>
                         <div class="detail-value"><%=address.getPincode()%></div>
                     </div>
                     <!-- Update button -->

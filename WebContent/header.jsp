@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Logout Header</title>
+<title>Sign Out Header</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -166,8 +166,8 @@ body {
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
          <ul class="nav navbar-nav navbar-right">
-            <li><a href="login.jsp">Login</a></li>
-            <li><a href="sendOtp.jsp">Register</a></li>
+            <li><a href="login.jsp">Sign In</a></li>
+            <li><a href="sendOtp.jsp">Sign Up</a></li>
             <li><a href="index.jsp">Products</a></li>
             <li class="dropdown"><a class="dropdown-toggle"
                data-toggle="dropdown" href="#">Category <span class="caret"></span>
@@ -237,7 +237,7 @@ body {
             %>
             <li><a href="orderDetails.jsp">Orders</a></li>
             <li><a href="userProfile.jsp">Profile</a></li>
-            <li><a href="./LogoutSrv">Logout</a></li>
+            <li><a href="./LogoutSrv">Sign Out</a></li>
          </ul>
       </div>
    </div>
@@ -284,7 +284,7 @@ body {
                   <li><a href="updateUSDValue.jsp">Update USD Value</a></li>
                   <li><a href="updateShipmentCharge.jsp">Update Shipment Charge</a></li>
                </ul></li>
-            <li><a href="./LogoutSrv">Logout</a></li>
+            <li><a href="./LogoutSrv">Sign Out</a></li>
 
          </ul>
       </div>

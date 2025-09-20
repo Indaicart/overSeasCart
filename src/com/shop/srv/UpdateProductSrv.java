@@ -43,12 +43,12 @@ public class UpdateProductSrv extends HttpServlet {
 
 		if (userType == null || !userType.equals("admin")) {
 
-			response.sendRedirect("login.jsp?message=Access Denied, Login As Admin!!");
+			response.sendRedirect("login.jsp?message=Access Denied, Sign In As Admin!!");
 			return;
 
 		} else if (userName == null || password == null) {
 
-			response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
+			response.sendRedirect("login.jsp?message=Session Expired, Sign In Again!!");
 			return;
 		}
 

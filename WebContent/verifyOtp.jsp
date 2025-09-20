@@ -3,7 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Register</title>
+<title>Sign Up</title>
+<link rel="icon" type="image/png" href="images/logo.png">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/changes.css">
@@ -29,7 +30,7 @@
 				class="col-md-4 col-md-offset-4"
 				style="border: 2px solid black; border-radius: 10px; background-color: #FFE5CC; padding: 10px;">
 				<div style="font-weight: bold;" class="text-center">
-					<h2 style="color: green;"><%=forPasswordChange ? "Reset Password": "Registration Form"%></h2>
+					<h2 style="color: green;"><%=forPasswordChange ? "Reset Password": "Sign Up"%></h2>
 					<%
 					if (message != null) {
 					%>

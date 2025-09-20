@@ -28,8 +28,8 @@ public class CheckoutServlet extends HttpServlet {
 //		System.out.println("In CheckoutServlet, Password: " + password);
 
         if (userName == null) {
-        	System.out.println("In CheckoutServlet, moving to login page : ");
-            response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
+        	System.out.println("In CheckoutServlet, moving to Sign In page : ");
+            response.sendRedirect("login.jsp?message=Session Expired, Sign In Again!!");
             return;
         }
 

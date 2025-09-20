@@ -46,7 +46,7 @@ public class AddProductSrv extends HttpServlet {
 
 		else if (userName == null || password == null) {
 
-			response.sendRedirect("login.jsp?message=Session Expired, Login Again to Continue!");
+			response.sendRedirect("login.jsp?message=Session Expired, Sign In Again to Continue!");
 		}
 
 		String status = "Product Registration Failed!";

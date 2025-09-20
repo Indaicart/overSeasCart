@@ -4,8 +4,8 @@
 <%
     UserBean user = (UserBean) request.getAttribute("user");
     if (user == null) {
-       System.out.println("In checkout.jsp, moving to login page");
-       response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
+       System.out.println("In checkout.jsp, moving to Sign In page");
+       response.sendRedirect("login.jsp?message=Session Expired, Sign In Again!!");
        return;
     }
     AddressServiceImpl addressDao = new AddressServiceImpl();
@@ -26,6 +26,7 @@
 <html>
 <head>
     <title>Checkout</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

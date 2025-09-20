@@ -8,6 +8,7 @@
 <title>Update Product</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="images/logo.png">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/changes.css">
@@ -43,10 +44,10 @@
 		response.sendRedirect("updateProductById.jsp?message=Please Enter a valid product Id");
 		return;
 	} else if (utype == null || !utype.equals("admin")) {
-		response.sendRedirect("login.jsp?message=Access Denied, Login as admin!!");
+		response.sendRedirect("login.jsp?message=Access Denied, Sign In as admin!!");
 		return;
 	} else if (uname == null || pwd == null) {
-		response.sendRedirect("login.jsp?message=Session Expired, Login Again!!");
+		response.sendRedirect("login.jsp?message=Session Expired, Sign In Again!!");
 		return;
 	}
 	%>
