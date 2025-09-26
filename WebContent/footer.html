@@ -1,129 +1,153 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Shopping Center</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8">
-	<link rel="stylesheet"
-		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="css/changes.css">
+    <title>Shopping Center</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-	<style>
-		.site-footer {
+    <style>
+        .site-footer {
             background: #343434;
             color: #F8F8F8;
-            padding: 45px 0 18px 0;
+            padding: 50px 0 20px 0;
             border-radius: 18px 18px 0 0;
             margin-top: 100px;
             box-shadow: 0 7px 24px rgba(60,60,80,0.12);
         }
-        .site-footer h3 {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: 0.8px;
-            margin-bottom: 6px;
-        }
-        .site-footer em {
+        .site-footer h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 18px;
             color: #97ffad;
-            font-size: 1.02rem;
         }
-        .site-footer .footer-contact p {
-            margin-bottom: 8px;
-            font-size: 1.09rem;
+        .site-footer a {
             color: #eee;
-            letter-spacing: 0.3px;
+            text-decoration: none;
         }
-        .site-footer .footer-contact span {
+        .site-footer a:hover {
             color: #80ffb5;
-            margin-right: 5px;
+            text-decoration: underline;
         }
-        .site-footer input,
-        .site-footer textarea {
-            border-radius: 7px;
+        .footer-links li {
+            list-style: none;
+            margin-bottom: 10px;
+        }
+        .footer-links i {
+            margin-right: 8px;
+            color: #80ffb5;
+        }
+        .footer-social i {
+            font-size: 1.3rem;
+            margin-right: 14px;
+            color: #f1f1f1;
+            transition: 0.3s;
+        }
+        .footer-social i:hover {
+            color: #80ffb5;
+        }
+        .newsletter input {
+            border-radius: 6px;
             border: none;
-            background: #f7f7f7;
-            margin-bottom: 14px;
-            box-shadow: 0 1px 4px rgba(140,200,150,0.07);
-            color: #252525;
-            font-size: 1rem;
-            transition: box-shadow .15s;
+            padding: 8px;
+            width: 75%;
+            margin-right: 6px;
         }
-        .site-footer input:focus,
-        .site-footer textarea:focus {
-            outline: none !important;
-            box-shadow: 0 0 8px #228d2b66 !important;
-        }
-        .site-footer .btn-send {
+        .newsletter button {
             background: #228d2b;
             color: #fff;
-            font-weight: 500;
-            border-radius: 7px;
-            padding: 8px 32px;
-            font-size: 1.09rem;
             border: none;
-            transition: background 0.18s;
-            margin-top: 4px;
-            box-shadow: 0 2px 8px rgba(34, 141, 43, .08);
+            border-radius: 6px;
+            padding: 8px 18px;
+            transition: 0.2s;
         }
-        .site-footer .btn-send:hover,
-        .site-footer .btn-send:focus {
+        .newsletter button:hover {
             background: #1b7435;
-            color: #ffffff;
         }
+        .footer-bottom {
+            border-top: 1px solid #555;
+            margin-top: 30px;
+            padding-top: 12px;
+            font-size: 0.9rem;
+            color: #aaa;
+            text-align: center;
+        }
+        .payment-icons i {
+            font-size: 2rem;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+        .payment-icons .fa-cc-visa { color: #1a1f71; }
+        .payment-icons .fa-cc-mastercard { color: #eb001b; }
+        .payment-icons .fa-cc-paypal { color: #003087; }
+        .payment-icons .fa-cc-amex { color: #2e77bc; }
+        .payment-icons .fa-cc-discover { color: #ff6000; }
+        .payment-icons i:hover { opacity: 0.8; }
         @media (max-width: 767px) {
-            .site-footer .footer-contact,
-            .site-footer .footer-form {
-                text-align: center;
+            .newsletter input {
+                width: 100%;
+                margin-bottom: 10px;
             }
-            .site-footer h3 {
-                font-size: 1.4rem;
-            }
-            .site-footer {
-                padding: 24px 0 10px 0;
+            .newsletter button {
+                width: 100%;
             }
         }
-	</style>
+    </style>
 </head>
 <body style="background-color: #E6F9E6;">
-<!-- Start the footer Contacts -->
+
+<!-- Footer Start -->
 <div class="container-fluid site-footer">
-	<div class="container">
-		<h3 class="text-center">Contact</h3>
-		<p class="text-center"><em>We love our fans!</em></p>
-		<div class="row" style="margin-top:32px;">
-			<div class="col-md-4 footer-contact" style="margin-bottom:24px;">
-				<p>Fan? Drop a note.</p>
-				<p><span class="glyphicon glyphicon-map-marker"></span>My Bharat Bazaar</p>
-				<p><span class="glyphicon glyphicon-phone"></span> Phone: +1 (206) 457-6636</p>
-				<p><span class="glyphicon glyphicon-envelope"></span> Email: indiancart2021@gmail.com</p>
-				<p><span class="glyphicon glyphicon-copyright-mark"></span> 4413 235th Pl SE, Bothell, WA 98021</p>
-			</div>
-			<div class="col-md-8 footer-form">
-				<form action="fansMessage" method="post">
-					<div class="row">
-						<div class="col-sm-6 form-group">
-							<input class="form-control" id="name" name="name"
-								   placeholder="Name" type="text" required>
-						</div>
-						<div class="col-sm-6 form-group">
-							<input class="form-control" id="email" name="email"
-								   placeholder="Email" type="email" required>
-						</div>
-					</div>
-					<textarea class="form-control" id="comments" name="comments"
-							  placeholder="Comment" rows="5" required></textarea>
-					<div class="row">
-						<div class="col-md-12 form-group">
-							<button class="btn btn-send pull-right" type="submit">Send</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+
+            <!-- About -->
+            <div class="col-md-4 col-sm-6">
+                <h4>About Us</h4>
+                <p>My Bharat Bazaar is your trusted online store for authentic Indian products delivered with care.</p>
+                <p>Bringing the flavors of India straight to your doorstep.</p>
+    			<p>All your favorite Indian products under one roof.</p>
+            </div>
+
+            <!-- Customer Support -->
+            <div class="col-md-4 col-sm-6">
+                <h4>Customer Support</h4>
+                <ul class="footer-links">
+                    <li><a href="faqs.html" target="_blank"><i class="fa fa-angle-right"></i>FAQs</a></li>
+                    <li><a href="return-policy.html" target="_blank"><i class="fa fa-angle-right"></i>Return Policy</a></li>
+        			<li><a href="privacy-policy.html" target="_blank"><i class="fa fa-angle-right"></i>Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact / Newsletter -->
+            <div class="col-md-4 col-sm-6">
+    			<h4>Stay Connected</h4>
+    
+			    <p style="display:flex; align-items:flex-start;">
+        			<i class="fa fa-map-marker-alt" style="margin-right:8px; margin-top:3px;"></i>
+        			<span>
+            			<strong>My Bharat Bazaar,</strong><br>
+			            4413 235th Pl SE, Bothell,<br>
+            			WA 98021, USA
+        			</span>
+    			</p>
+    			<p><i class="fa fa-phone"></i> +1 (206) 457-6636</p>
+			    <p><i class="fa fa-envelope"></i> indiancart2021@gmail.com</p>
+        	</div>
+        </div>
+        <!-- Bottom -->
+       	<div class="footer-bottom">
+			<p style="color:#228d2b; font-weight:bold; margin:0;">
+    &copy; 2025 My Bharat Bazaar. All Rights Reserved | Designed with &hearts; and Care
+</p>
+        </div>
+    </div>
 </div>
-<!-- End of Contact or about us -->
+<!-- Footer End -->
+
 </body>
 </html>

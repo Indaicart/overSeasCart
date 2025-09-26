@@ -164,7 +164,7 @@
                 <b>Weight:</b> <%=product.getProdWeight()%> grams
             </div>
             <div class="product-price">
-                Rs <%=product.getProdPrice()%>
+                $ <%=product.getProdPrice()%>
             </div>
             <form method="post">
                 <button type="submit"

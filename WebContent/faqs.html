@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FAQs - My Bharat Bazaar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #E6F9E6; /* same as Return/Privacy pages */
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        .faq-section {
+            margin: 50px auto;
+            max-width: 900px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        }
+        .faq-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #228d2b; /* green */
+            font-weight: bold;
+        }
+        .panel {
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+        }
+        .panel-heading {
+            background-color: #fff !important;
+            color: #111 !important; /* black headers */
+            border-radius: 8px 8px 0 0;
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        .panel-title a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: #111; /* black headers */
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .panel-title a:hover {
+            color: #555;
+        }
+        .panel-body {
+            padding: 20px;
+            background: #fff;
+            border-radius: 0 0 8px 8px;
+            color: #444;
+        }
+        .faq-icon {
+            transition: transform 0.3s;
+        }
+        .collapsed .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Contact box at the bottom */
+        .contact-box {
+            margin: 50px auto 30px auto;
+            padding: 25px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            max-width: 900px;
+            text-align: center;
+        }
+        .contact-box h4 {
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #111;
+        }
+        .contact-item {
+            display: inline-flex;
+            align-items: center;
+            margin: 10px 20px;
+            font-size: 1rem;
+            color: #333;
+        }
+        .contact-item i {
+            font-size: 1.2rem;
+            color: #228d2b;
+            margin-right: 8px;
+        }
+        .contact-item a {
+            color: #228d2b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 767px) {
+            .contact-item {
+                display: flex;
+                justify-content: center;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="panel-group" id="faqAccordion">
+
+        <!-- Q1 -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#faqAccordion" href="#q1" aria-expanded="true">
+                        <span>1. What is My Bharat Bazaar?</span>
+                        <i class="fa fa-chevron-up faq-icon"></i>
+                    </a>
+                </h4>
+            </div>
+            <div id="q1" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    My Bharat Bazaar is your trusted online store for authentic Indian products delivered across the USA.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#faqAccordion" href="#q2">
+                        <span>2. How can I place an order?</span>
+                        <i class="fa fa-chevron-up faq-icon"></i>
+                    </a>
+                </h4>
+            </div>
+            <div id="q2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    You can browse products, add them to your cart, and complete your purchase securely through our checkout page.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#faqAccordion" href="#q3">
+                        <span>3. What payment methods do you accept?</span>
+                        <i class="fa fa-chevron-up faq-icon"></i>
+                    </a>
+                </h4>
+            </div>
+            <div id="q3" class="panel-collapse collapse">
+                <div class="panel-body">
+                    We accept Visa, MasterCard, and Amex cards for your convenience.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#faqAccordion" href="#q4">
+                        <span>4. How can I track my order?</span>
+                        <i class="fa fa-chevron-up faq-icon"></i>
+                    </a>
+                </h4>
+            </div>
+            <div id="q4" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Once your order is shipped, you’ll receive a tracking link by email to follow your package in real time.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#faqAccordion" href="#q5">
+                        <span>5. Do you accept returns?</span>
+                        <i class="fa fa-chevron-up faq-icon"></i>
+                    </a>
+                </h4>
+            </div>
+            <div id="q5" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Currently, we do not accept returns once the items are shipped.  
+                    However, if you receive a damaged or incorrect product, please contact our customer support team at  
+                    <a href="mailto:indiancart2021@gmail.com">indiancart2021@gmail.com</a> within 48 hours of delivery, and we’ll resolve the issue promptly.
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Contact Box -->
+<div class="contact-box">
+    <h4>Still have questions?</h4>
+    <div class="contact-item">
+        <i class="fa fa-envelope"></i>
+        <a href="mailto:indiancart2021@gmail.com">indiancart2021@gmail.com</a>
+    </div>
+    <div class="contact-item">
+        <i class="fa fa-phone"></i>
+        +1 (206) 457-6636
+    </div>
+</div>
+
+</body>
+</html>
